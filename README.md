@@ -1,5 +1,6 @@
 # cs-ilp-core
-This is a C# implementation of Interledger Protocol.
+This is a C# implementation of Interledger Protocol v4.  
+Refer to [ILPv4 RFC](https://github.com/interledger/rfcs/pull/387).
 
 ## Objectives
 - To understand ILP deeply
