@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PolicySet name="cs-ilp-core.mdpolicy">
+  <DotNetNamingPolicy>
+    <DirectoryNamespaceAssociation>Hierarchical</DirectoryNamespaceAssociation>
+  </DotNetNamingPolicy>
+  <TextStylePolicy scope="text/x-csharp">
+    <FileWidth>80</FileWidth>
+    <TabsToSpaces>True</TabsToSpaces>
+  </TextStylePolicy>
+  <CSharpFormattingPolicy scope="text/x-csharp" />
+</PolicySet>
