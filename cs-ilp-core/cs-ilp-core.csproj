@@ -16,5 +16,9 @@
     <Folder Include="Org\Interledger\Encoding\Asn\Codecs\" />
     <Folder Include="Org\Interledger\Encoding\Asn\Serializers\" />
     <Folder Include="Org\Interledger\Encoding\Asn\Serializers\Oer\" />
+    <Folder Include="Org\Interledger\Core\PSK2\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Org\Interledger\Core\SharedSecret.cs" />
   </ItemGroup>
 </Project>

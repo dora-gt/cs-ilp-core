@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Security.Cryptography;
 
+using Org.Interledger.Core.PSK2;
+
 using Sample.Elements;
 using static Sample.Logger;
 
@@ -29,7 +31,7 @@ namespace Sample
             // In this code, it is just done by setting variable.
 
             // Shared secret is just a random bytes.
-            byte[] sharedSecret = new byte[32];
+            byte[] sharedSecret = new byte[PSK2Const.SharedSecretLength];
             RNGCryptoServiceProvider rngCryptoServiceProvider = new RNGCryptoServiceProvider();
             rngCryptoServiceProvider.GetBytes(sharedSecret);
             Log("sharedSecret: {0}", BitConverter.ToString(sharedSecret));
