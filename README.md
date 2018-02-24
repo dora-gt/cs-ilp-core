@@ -16,3 +16,6 @@ Just aim to make it simple and easy to understand.
 
 ## Branching Strategy
 - Based on [this](http://nvie.com/posts/a-successful-git-branching-model/) branching model
+
+## Code Formatting
+- Use [policy file](dev-tools/cs-ilp-core.mdpolicy).
