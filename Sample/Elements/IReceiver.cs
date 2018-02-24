@@ -6,6 +6,6 @@ namespace Sample.Elements
 {
     public interface IReceiver
     {
-        IInterledgerAddress Address { get; }
+        
     }
 }
