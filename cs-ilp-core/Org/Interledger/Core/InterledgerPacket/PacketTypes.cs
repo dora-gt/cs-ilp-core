@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Org.Interledger.Core.Packet
+namespace Org.Interledger.Core.InterledgerPacket
 {
-    public enum PacketTypes : int
+    public enum PacketTypes : byte
     {
         // 1-7, 9-11 is used for ILPv1
         // 8, 12-14 is used for ILPv4

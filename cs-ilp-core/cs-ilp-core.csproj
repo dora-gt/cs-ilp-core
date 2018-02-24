@@ -9,7 +9,7 @@
     <None Remove="Org\Interledger\.DS_Store" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Org\Interledger\Core\Packet\" />
+    <Folder Include="Org\Interledger\Core\InterledgerPacket\" />
     <Folder Include="Org\Interledger\Encoding\" />
     <Folder Include="Org\Interledger\Encoding\Asn\" />
     <Folder Include="Org\Interledger\Encoding\Asn\Framework\" />
