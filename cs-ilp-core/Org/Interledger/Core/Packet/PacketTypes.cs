@@ -1,0 +1,16 @@
+﻿using System;
+
+namespace Org.Interledger.Core.Packet
+{
+    public enum PacketTypes : int
+    {
+        ILP_PAYMENT_TYPE = 1,
+        ILQP_QUOTE_LIQUIDITY_REQUEST_TYPE = 2,
+        ILQP_QUOTE_LIQUIDITY_RESPONSE_TYPE = 3,
+        ILQP_QUOTE_BY_SOURCE_AMOUNT_REQUEST_TYPE = 4,
+        ILQP_QUOTE_BY_SOURCE_AMOUNT_RESPONSE_TYPE = 5,
+        ILQP_QUOTE_BY_DESTINATION_AMOUNT_REQUEST_TYPE = 6,
+        ILQP_QUOTE_BY_DESTINATION_AMOUNT_RESPONSE_TYPE = 7,
+        INTERLEDGER_PROTOCOL_ERROR = 8,
+    }
+}
