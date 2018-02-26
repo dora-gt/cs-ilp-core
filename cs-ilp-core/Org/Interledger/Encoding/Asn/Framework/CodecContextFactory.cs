@@ -19,8 +19,9 @@ namespace Org.Interledger.Encoding.Asn.Framework
 
         public static CodecContext GetContext(String encodingRules)
         {
-            AsnObjectCodecRegistry mappings = new AsnObjectCodecRegistry()
-                .Register(new AnsUint8CodecSupplier());
+            AsnObjectCodecRegistry mappings = new AsnObjectCodecRegistry();
+
+                //.Register(new AnsUint8CodecSupplier());
 
             AsnObjectSerializationContext serializers = new AsnObjectSerializationContext();
             if (OCTET_ENCODING_RULES.Equals(encodingRules))

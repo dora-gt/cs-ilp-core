@@ -16,35 +16,33 @@ namespace Org.Interledger.Encoding.Asn.Framework
 
         public AsnObjectCodecRegistry Register<T>(IAsnObjectCodecSupplier<T> supplier)
         {
-            Objects.RequireNonNull<IAsnObjectCodecSupplier<T>>(supplier);
+            Objects.RequireNonNull(supplier);
 
             this.mappersByObjectType.Add(typeof(T), supplier);
 
             return this;
         }
 
-        public IAsnObjectCodec<T> GetAsnObjectForType<T>() where T : IAsnObjectCodecSupplier<T>
+        public IAsnObjectCodec<T> GetAsnObjectForType<T>()
         {
-            Type type = typeof(T);
-            IAsnObjectCodec<T> codec = this.TryGetAsnObjectForType<T>(type);
+            IAsnObjectCodec<T> codec = this.TryGetAsnObjectForType<T>(typeof(T));
             if (codec == null)
             {
                 throw new CodecException(
-                    string.Format("No codec registered for {0} or its super classes!", type)
+                    string.Format("No codec registered for {0} or its super classes!", typeof(T))
                 );
             }
             return codec;
         }
 
-        private IAsnObjectCodec<T> TryGetAsnObjectForType<T>(Type type) where T : IAsnObjectCodecSupplier<T>
+        private IAsnObjectCodec<T> TryGetAsnObjectForType<T>(Type type)
         {
-            Objects.RequireNonNull<Type>(type);
-
+            Objects.RequireNonNull(type);
             IAsnObjectCodec<T> codec;
 
             if (mappersByObjectType.ContainsKey(type))
             {
-                codec = ((T)mappersByObjectType[type]).Get();
+                codec = ((IAsnObjectCodecSupplier<T>)mappersByObjectType[type]).Get();
                 if (codec != null)
                 {
                     return codec;
@@ -53,7 +51,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
 
             if (type.BaseType != null)
             {
-                codec = (IAsnObjectCodec<T>)TryGetAsnObjectForType<T>(type.BaseType);
+                codec = TryGetAsnObjectForType<T>(type.BaseType);
                 if (codec != null)
                 {
                     return codec;
@@ -62,7 +60,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
 
             foreach (Type interfaceType in type.GetInterfaces())
             {
-                codec = (IAsnObjectCodec<T>)TryGetAsnObjectForType<T>(interfaceType);
+                codec = TryGetAsnObjectForType<T>(interfaceType);
                 if (codec != null)
                 {
                     return codec;

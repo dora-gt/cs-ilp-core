@@ -8,6 +8,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
 {
     public class AsnObjectSerializationContext
     {
+        // object = IAsnObjectSerializer
         private readonly IDictionary<Type, object> serializers;
 
         public AsnObjectSerializationContext()
@@ -15,7 +16,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
             this.serializers = new ConcurrentDictionary<Type, object>();
         }
 
-        public AsnObjectSerializationContext Register<T>(Type type, IAsnObjectSerializer<T> serializer) where T : IAsnObjectCodec<T>
+        public AsnObjectSerializationContext Register<T, U>(Type type, IAsnObjectSerializer<T, U> serializer) where T : IAsnObjectCodec<U>
         {
             Objects.RequireNonNull(type);
             Objects.RequireNonNull(serializer);
@@ -25,15 +26,15 @@ namespace Org.Interledger.Encoding.Asn.Framework
             return this;
         }
 
-        public AsnObjectSerializationContext Read<T>(T instance, Stream inputStream) where T:class, IAsnObjectCodec<T>
+        public AsnObjectSerializationContext Read<T, U>(T instance, Stream inputStream) where T:class, IAsnObjectCodec<U>
         {
             Objects.RequireNonNull(instance);
             Objects.RequireNonNull(inputStream);
-            this.GetSerializer<T>(instance).Read(this, instance, inputStream);
+            this.GetSerializer<T, U>(instance).Read(this, instance, inputStream);
             return this;
         }
 
-        public AsnObjectSerializationContext Read<T>(T instance, byte[] data) where T: class, IAsnObjectCodec<T>
+        public AsnObjectSerializationContext Read<T, U>(T instance, byte[] data) where T: class, IAsnObjectCodec<U>
         {
             Objects.RequireNonNull(instance);
             Objects.RequireNonNull(data);
@@ -42,7 +43,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
             {
                 using (MemoryStream stream = new MemoryStream(data))
                 {
-                    this.Read(instance, stream);
+                    this.Read<T, U>(instance, stream);
                 }
             }
             catch (IOException e)
@@ -53,16 +54,15 @@ namespace Org.Interledger.Encoding.Asn.Framework
             return this;
         }
 
-        public AsnObjectSerializationContext Write<T>(T instance, Stream outputStream) where T: class, IAsnObjectCodec<T>
+        public AsnObjectSerializationContext Write<T, U>(T instance, Stream outputStream) where T: class, IAsnObjectCodec<U>
         {
             Objects.RequireNonNull(instance);
             Objects.RequireNonNull(outputStream);
-            this.GetSerializer<T>(instance).Write(this, instance, outputStream);
+            this.GetSerializer<T, U>(instance).Write(this, instance, outputStream);
             return this;
         }
 
-
-        public byte[] Write<T>(T instance) where T: class, IAsnObjectCodec<T>
+        public byte[] Write<T, U>(T instance) where T: class, IAsnObjectCodec<U>
         {
             Objects.RequireNonNull(instance);
 
@@ -70,7 +70,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
             {
                 using (MemoryStream stream = new MemoryStream())
                 {
-                    this.GetSerializer<T>(instance).Write(this, instance, stream);
+                    this.GetSerializer<T, U>(instance).Write(this, instance, stream);
                     return stream.GetBuffer();
                 }
             }
@@ -80,10 +80,10 @@ namespace Org.Interledger.Encoding.Asn.Framework
             }
         }
 
-        internal IAsnObjectSerializer<T> GetSerializer<T>(T instance) where T:IAsnObjectCodec<T>
+        internal IAsnObjectSerializer<T, U> GetSerializer<T, U>(T instance) where T:IAsnObjectCodec<U>
         {
             Type type = instance.GetType();
-            IAsnObjectSerializer<T> serializer = TryGetSerializerForCodec<T>(type);
+            IAsnObjectSerializer<T, U> serializer = TryGetSerializerForCodec<T, U>(type);
 
             if (serializer == null)
             {
@@ -94,15 +94,15 @@ namespace Org.Interledger.Encoding.Asn.Framework
             return serializer;
         }
 
-        private IAsnObjectSerializer<T> TryGetSerializerForCodec<T>(Type type) where T : IAsnObjectCodec<T>
+        private IAsnObjectSerializer<T, U> TryGetSerializerForCodec<T, U>(Type type) where T : IAsnObjectCodec<U>
         {
             Objects.RequireNonNull(type);
 
-            IAsnObjectSerializer<T> serializer;
+            IAsnObjectSerializer<T, U> serializer;
 
             if (serializers.ContainsKey(type))
             {
-                serializer = (IAsnObjectSerializer<T>)this.serializers[type];
+                serializer = (IAsnObjectSerializer<T, U>)this.serializers[type];
                 if (serializer != null)
                 {
                     return serializer;
@@ -111,7 +111,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
 
             if (type.BaseType != null)
             {
-                serializer = this.TryGetSerializerForCodec<T>(type.BaseType);
+                serializer = this.TryGetSerializerForCodec<T, U>(type.BaseType);
                 if (serializer != null)
                 {
                     return serializer;
@@ -120,7 +120,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
 
             foreach (Type interfaceType in type.GetInterfaces())
             {
-                serializer = this.TryGetSerializerForCodec<T>(interfaceType);
+                serializer = this.TryGetSerializerForCodec<T, U>(interfaceType);
                 if (serializer != null)
                 {
                     return serializer;
