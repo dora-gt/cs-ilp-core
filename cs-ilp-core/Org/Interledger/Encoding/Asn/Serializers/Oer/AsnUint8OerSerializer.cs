@@ -6,9 +6,9 @@ using Org.Interledger.Encoding.Asn.Framework;
 
 namespace Org.Interledger.Encoding.Asn.Serializers.Oer
 {
-    public class AsnUint8OerSerializer : IAsnObjectSerializer<AsnUint8Codec, int>
+    public class AsnUint8OerSerializer : IAsnObjectSerializer<IAsnObjectCodec<int>, int>
     {
-        public void Read(AsnObjectSerializationContext context, AsnUint8Codec instance, Stream inputStream)
+        public void Read(AsnObjectSerializationContext context, IAsnObjectCodec<int> instance, Stream inputStream)
         {
             Objects.RequireNonNull(context);
             Objects.RequireNonNull(instance);
@@ -23,7 +23,7 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
             instance.Encode(value);
         }
 
-        public void Write(AsnObjectSerializationContext context, AsnUint8Codec instance, Stream outputStream)
+        public void Write(AsnObjectSerializationContext context, IAsnObjectCodec<int> instance, Stream outputStream)
         {
             if (255 < instance.Decode())
             {

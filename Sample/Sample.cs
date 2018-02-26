@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Security.Cryptography;
 
 using Org.Interledger.Core.PSK2;
+using Org.Interledger.Encoding.Asn.Framework;
 
 using Sample.Elements;
 using static Sample.Logger;
@@ -38,6 +40,19 @@ namespace Sample
 
             ISender sender = new Sender(sharedSecret);
             IReceiver receiver = new Receiver(sharedSecret);
+
+            Codec();
+        }
+
+        private static void Codec()
+        {
+            CodecContext context = CodecContextFactory.GetContext(CodecContextFactory.OCTET_ENCODING_RULES);
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                context.Write<int>(100, stream);
+                Console.WriteLine(BitConverter.ToString(stream.GetBuffer()));
+            }
         }
     }
 }

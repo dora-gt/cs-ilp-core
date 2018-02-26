@@ -25,7 +25,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
             AsnObjectSerializationContext serializers = new AsnObjectSerializationContext();
             if (OCTET_ENCODING_RULES.Equals(encodingRules))
             {
-                serializers.Register<AsnUint8Codec, int>(typeof(AsnUint8Codec), new AsnUint8OerSerializer());
+                serializers.Register<IAsnObjectCodec<int>, int>(typeof(AsnUint8Codec), new AsnUint8OerSerializer());
             }
             else
             {
