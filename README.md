@@ -2,6 +2,8 @@
 This is a C# implementation of Interledger Protocol v4.  
 Refer to [ILPv4 RFC](https://github.com/interledger/rfcs/pull/387).
 
+OER encoder/decoder is ported from: [Quilt Project](https://github.com/hyperledger/quilt/tree/master/codec-framework).
+
 ## Objectives
 - To understand ILP deeply
 - To show ILP structure by code which is easy to understand
