@@ -52,6 +52,9 @@ namespace Sample
             {
                 context.Write<int>(100, stream);
                 Console.WriteLine(BitConverter.ToString(stream.GetBuffer()));
+                stream.Position = 0;
+                int written = context.Read<int>(stream);
+                Console.WriteLine(string.Format("{0}", written));
             }
         }
     }
