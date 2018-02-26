@@ -16,7 +16,7 @@ namespace Org.Interledger.Encoding.Asn.Codecs
 
         public override void Encode(int value)
         {
-            if (value > 255 || value < 0)
+            if (255 < value || value < 0)
             {
                 throw new ArgumentOutOfRangeException(
                     string.Format("Uint8 only supports values from 0 to 255, value {0} is out of range.", value)

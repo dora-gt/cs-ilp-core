@@ -7,6 +7,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
 {
     public class AsnObjectCodecRegistry
     {
+        // object = IAsnObjectCodecSupplier<T>
         private readonly IDictionary<Type, object> mappersByObjectType;
 
         public AsnObjectCodecRegistry()

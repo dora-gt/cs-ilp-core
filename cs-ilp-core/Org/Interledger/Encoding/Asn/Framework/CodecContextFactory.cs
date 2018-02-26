@@ -1,12 +1,12 @@
 ﻿using System;
 
 using Org.Interledger.Encoding.Asn.Codecs;
+using Org.Interledger.Encoding.Asn.Serializers.Oer;
 
 namespace Org.Interledger.Encoding.Asn.Framework
 {
     public class CodecContextFactory
     {
-
         private class AnsUint8CodecSupplier : IAsnObjectCodecSupplier<int>
         {
             public IAsnObjectCodec<int> Get()
@@ -20,13 +20,12 @@ namespace Org.Interledger.Encoding.Asn.Framework
         public static CodecContext GetContext(String encodingRules)
         {
             AsnObjectCodecRegistry mappings = new AsnObjectCodecRegistry();
-
-                //.Register(new AnsUint8CodecSupplier());
+            mappings.Register(new AnsUint8CodecSupplier());
 
             AsnObjectSerializationContext serializers = new AsnObjectSerializationContext();
             if (OCTET_ENCODING_RULES.Equals(encodingRules))
             {
-                // serializers.Register
+                serializers.Register<AsnUint8Codec, int>(typeof(AsnUint8Codec), new AsnUint8OerSerializer());
             }
             else
             {
