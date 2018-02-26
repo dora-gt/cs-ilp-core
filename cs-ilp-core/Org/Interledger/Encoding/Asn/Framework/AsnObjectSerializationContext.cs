@@ -9,11 +9,11 @@ namespace Org.Interledger.Encoding.Asn.Framework
     public class AsnObjectSerializationContext
     {
         // object = IAsnObjectSerializer
-        private readonly IDictionary<Type, object> serializers;
+        private readonly IDictionary<Type, object> _serializers;
 
         public AsnObjectSerializationContext()
         {
-            this.serializers = new ConcurrentDictionary<Type, object>();
+            this._serializers = new ConcurrentDictionary<Type, object>();
         }
 
         public AsnObjectSerializationContext Register<T, U>(Type type, IAsnObjectSerializer<T, U> serializer) where T : IAsnObjectCodec<U>
@@ -21,7 +21,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
             Objects.RequireNonNull(type);
             Objects.RequireNonNull(serializer);
 
-            this.serializers.Add(type, serializer);
+            this._serializers.Add(type, serializer);
 
             return this;
         }
@@ -100,9 +100,9 @@ namespace Org.Interledger.Encoding.Asn.Framework
 
             IAsnObjectSerializer<T, U> serializer;
 
-            if (serializers.ContainsKey(type))
+            if (this._serializers.ContainsKey(type))
             {
-                serializer = (IAsnObjectSerializer<T, U>)this.serializers[type];
+                serializer = (IAsnObjectSerializer<T, U>)this._serializers[type];
                 if (serializer != null)
                 {
                     return serializer;

@@ -5,13 +5,13 @@ namespace Org.Interledger.Encoding.Asn.Framework
 {
     public class CodecContext
     {
-        private readonly AsnObjectCodecRegistry mappings;
-        private readonly AsnObjectSerializationContext serializers;
+        private readonly AsnObjectCodecRegistry _mappings;
+        private readonly AsnObjectSerializationContext _serializers;
 
         public CodecContext(AsnObjectCodecRegistry mappings, AsnObjectSerializationContext serializers)
         {
-            this.mappings = mappings;
-            this.serializers = serializers;
+            this._mappings = mappings;
+            this._serializers = serializers;
         }
 
         public CodecContext Register<T, U>(IAsnObjectCodecSupplier<U> supplier) where T: IAsnObjectCodec<U>
@@ -19,10 +19,10 @@ namespace Org.Interledger.Encoding.Asn.Framework
             Objects.RequireNonNull(supplier);
 
             //Verify we have a serializer for this object (throws if not)
-            serializers.GetSerializer<IAsnObjectCodec<U>, U>(supplier.Get());
+            this._serializers.GetSerializer<IAsnObjectCodec<U>, U>(supplier.Get());
 
             //Register the mapping
-            mappings.Register(supplier);
+            this._mappings.Register(supplier);
 
             return this;
         }
@@ -33,26 +33,26 @@ namespace Org.Interledger.Encoding.Asn.Framework
             Objects.RequireNonNull(serializer);
 
             //Register the serializer
-            serializers.Register(typeof(U), serializer);
+            this._serializers.Register(typeof(U), serializer);
 
             //Register the mapping
-            mappings.Register<U>(supplier);
+            this._mappings.Register<U>(supplier);
 
             return this;
         }
 
         public T Read<T>(Stream inputStream)
         {
-            IAsnObjectCodec<T> asnObjectCodec = mappings.GetAsnObjectForType<T>();
-            serializers.Read<IAsnObjectCodec<T>, T>(asnObjectCodec, inputStream);
+            IAsnObjectCodec<T> asnObjectCodec = this._mappings.GetAsnObjectForType<T>();
+            this._serializers.Read<IAsnObjectCodec<T>, T>(asnObjectCodec, inputStream);
             return asnObjectCodec.Decode();
         }
 
         public void Write<T>(T instance, Stream outputStream)
         {
-            IAsnObjectCodec<T> asnObjectCodec = mappings.GetAsnObjectForType<T>();
+            IAsnObjectCodec<T> asnObjectCodec = this._mappings.GetAsnObjectForType<T>();
             asnObjectCodec.Encode(instance);
-            serializers.Write<IAsnObjectCodec<T>, T>(asnObjectCodec, outputStream);
+            this._serializers.Write<IAsnObjectCodec<T>, T>(asnObjectCodec, outputStream);
         }
     }
 }
