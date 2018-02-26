@@ -7,11 +7,19 @@ namespace Org.Interledger.Encoding.Asn.Framework
 {
     public class CodecContextFactory
     {
-        private class AnsUint8CodecSupplier : IAsnObjectCodecSupplier<int>
+        private class AnsUint8CodecSupplier : IAsnObjectCodecSupplier<byte>
         {
-            public IAsnObjectCodec<int> Get()
+            public IAsnObjectCodec<byte> Get()
             {
                 return new AsnUint8Codec();
+            }
+        }
+
+        private class AsnUint32CodecSupplier : IAsnObjectCodecSupplier<uint>
+        {
+            public IAsnObjectCodec<uint> Get()
+            {
+                return new AsnUint32Codec();
             }
         }
 
@@ -21,11 +29,12 @@ namespace Org.Interledger.Encoding.Asn.Framework
         {
             AsnObjectCodecRegistry mappings = new AsnObjectCodecRegistry();
             mappings.Register(new AnsUint8CodecSupplier());
+            mappings.Register(new AsnUint32CodecSupplier());
 
             AsnObjectSerializationContext serializers = new AsnObjectSerializationContext();
             if (OCTET_ENCODING_RULES.Equals(encodingRules))
             {
-                serializers.Register<IAsnObjectCodec<int>, int>(typeof(AsnUint8Codec), new AsnUint8OerSerializer());
+                serializers.Register<IAsnObjectCodec<byte>, byte>(typeof(AsnUint8Codec), new AsnUint8OerSerializer());
             }
             else
             {

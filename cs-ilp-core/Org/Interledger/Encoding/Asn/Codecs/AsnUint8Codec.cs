@@ -1,20 +1,20 @@
 ﻿using System;
 namespace Org.Interledger.Encoding.Asn.Codecs
 {
-    public class AsnUint8Codec : AsnPrimitiveCodecBase<int>
+    public class AsnUint8Codec : AsnPrimitiveCodecBase<byte>
     {
-        private int Value { get; set; }
+        private byte Value { get; set; }
 
         public AsnUint8Codec() : base(new AsnSizeConstraint(0, 1))
         {
         }
 
-        public override int Decode()
+        public override byte Decode()
         {
             return this.Value;
         }
 
-        public override void Encode(int value)
+        public override void Encode(byte value)
         {
             if (255 < value || value < 0)
             {

@@ -50,10 +50,10 @@ namespace Sample
 
             using (MemoryStream stream = new MemoryStream())
             {
-                context.Write<int>(100, stream);
+                context.Write<byte>(100, stream);
                 Console.WriteLine(BitConverter.ToString(stream.GetBuffer()));
                 stream.Position = 0;
-                int written = context.Read<int>(stream);
+                byte written = context.Read<byte>(stream);
                 Console.WriteLine(string.Format("{0}", written));
             }
         }

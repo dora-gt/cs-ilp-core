@@ -6,9 +6,9 @@ using Org.Interledger.Encoding.Asn.Framework;
 
 namespace Org.Interledger.Encoding.Asn.Serializers.Oer
 {
-    public class AsnUint8OerSerializer : IAsnObjectSerializer<IAsnObjectCodec<int>, int>
+    public class AsnUint8OerSerializer : IAsnObjectSerializer<IAsnObjectCodec<byte>, byte>
     {
-        public void Read(AsnObjectSerializationContext context, IAsnObjectCodec<int> instance, Stream inputStream)
+        public void Read(AsnObjectSerializationContext context, IAsnObjectCodec<byte> instance, Stream inputStream)
         {
             Objects.RequireNonNull(context);
             Objects.RequireNonNull(instance);
@@ -20,10 +20,10 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
                 throw new CodecException("Unexpected end of stream.");
             }
 
-            instance.Encode(value);
+            instance.Encode((byte)value);
         }
 
-        public void Write(AsnObjectSerializationContext context, IAsnObjectCodec<int> instance, Stream outputStream)
+        public void Write(AsnObjectSerializationContext context, IAsnObjectCodec<byte> instance, Stream outputStream)
         {
             if (255 < instance.Decode())
             {
