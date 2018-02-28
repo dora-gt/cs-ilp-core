@@ -27,6 +27,11 @@ namespace Org.Interledger.Encoding.Asn.Codecs
             this.OnEncoded(this.Value);
         }
 
+        public override void Accept(IAsnObjectCodecVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
         public override string ToString()
         {
             return string.Format("AsnUint8Codec{{value={0}}}", this.Decode());

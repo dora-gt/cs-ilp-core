@@ -20,6 +20,8 @@ namespace Org.Interledger.Encoding.Asn.Codecs
 
         public abstract void Encode(T value);
 
+        public abstract void Accept(IAsnObjectCodecVisitor visitor);
+
         public bool HasEncodeEventListener()
         {
             return this.Encoded != null;

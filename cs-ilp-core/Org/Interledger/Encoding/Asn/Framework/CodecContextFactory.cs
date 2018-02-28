@@ -31,12 +31,10 @@ namespace Org.Interledger.Encoding.Asn.Framework
             mappings.Register(new AnsUint8CodecSupplier());
             mappings.Register(new AsnUint32CodecSupplier());
 
-            AsnObjectSerializationContext serializers = new AsnObjectSerializationContext();
+            AsnObjectSerializationContext serializers = null;
             if (OCTET_ENCODING_RULES.Equals(encodingRules))
             {
-                serializers.Register(typeof(AsnUint8Codec), new AsnUint8OerSerializer());
-                serializers.Register(typeof(AsnUint32Codec), new AsnOctetStringOerSerializer<uint>());
-                serializers.Register(typeof(AsnUint64Codec), new AsnOctetStringOerSerializer<ulong>());
+                serializers = new AsnObjectSerializationContext(new AsnObjectCodecOerReader(), new AsnObjectCodecOerWriter());
             }
             else
             {

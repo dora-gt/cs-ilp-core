@@ -18,9 +18,6 @@ namespace Org.Interledger.Encoding.Asn.Framework
         {
             Objects.RequireNonNull(supplier);
 
-            //Verify we have a serializer for this object (throws if not)
-            this._serializers.GetSerializer<IAsnObjectCodec<U>, U>(supplier.Get());
-
             //Register the mapping
             this._mappings.Register(supplier);
 
@@ -31,9 +28,6 @@ namespace Org.Interledger.Encoding.Asn.Framework
         {
             Objects.RequireNonNull(supplier);
             Objects.RequireNonNull(serializer);
-
-            //Register the serializer
-            this._serializers.Register(typeof(U), serializer);
 
             //Register the mapping
             this._mappings.Register<U>(supplier);

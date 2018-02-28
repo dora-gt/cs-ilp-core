@@ -1,4 +1,7 @@
 ﻿using System;
+
+using Org.Interledger.Encoding.Asn.Codecs;
+
 namespace Org.Interledger.Encoding.Asn.Framework
 {
     public interface IAsnObjectCodec<T>
@@ -6,5 +9,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
         T Decode();
 
         void Encode(T value);
+
+        void Accept(IAsnObjectCodecVisitor visitor);
     }
 }

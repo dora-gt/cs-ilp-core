@@ -8,9 +8,8 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
 {
     public class AsnOctetStringOerSerializer<T> : IAsnObjectSerializer<AsnOctetStringBasedObjectCodecBase<T>, T>
     {
-        public void Read(AsnObjectSerializationContext context, AsnOctetStringBasedObjectCodecBase<T> instance, Stream inputStream)
+        public void Read(AsnOctetStringBasedObjectCodecBase<T> instance, Stream inputStream)
         {
-            Objects.RequireNonNull(context);
             Objects.RequireNonNull(instance);
             Objects.RequireNonNull(inputStream);
 
@@ -51,9 +50,8 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
             }
         }
 
-        public void Write(AsnObjectSerializationContext context, AsnOctetStringBasedObjectCodecBase<T> instance, Stream outputStream)
+        public void Write(AsnOctetStringBasedObjectCodecBase<T> instance, Stream outputStream)
         {
-            Objects.RequireNonNull(context);
             Objects.RequireNonNull(instance);
             Objects.RequireNonNull(outputStream);
 

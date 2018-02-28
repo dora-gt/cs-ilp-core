@@ -8,9 +8,8 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
 {
     public class AsnUint8OerSerializer : IAsnObjectSerializer<IAsnObjectCodec<byte>, byte>
     {
-        public void Read(AsnObjectSerializationContext context, IAsnObjectCodec<byte> instance, Stream inputStream)
+        public void Read(IAsnObjectCodec<byte> instance, Stream inputStream)
         {
-            Objects.RequireNonNull(context);
             Objects.RequireNonNull(instance);
             Objects.RequireNonNull(inputStream);
 
@@ -23,7 +22,7 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
             instance.Encode((byte)value);
         }
 
-        public void Write(AsnObjectSerializationContext context, IAsnObjectCodec<byte> instance, Stream outputStream)
+        public void Write(IAsnObjectCodec<byte> instance, Stream outputStream)
         {
             if (255 < instance.Decode())
             {
