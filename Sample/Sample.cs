@@ -2,6 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 
+using Org.Interledger.Core;
 using Org.Interledger.Core.PSK2;
 using Org.Interledger.Encoding.Asn.Framework;
 
@@ -53,8 +54,8 @@ namespace Sample
                 context.Write<byte>(100, stream);
                 Console.WriteLine(BitConverter.ToString(stream.GetBuffer()));
                 stream.Position = 0;
-                byte written = context.Read<byte>(stream);
-                Console.WriteLine(string.Format("{0}", written));
+                byte writtenByte = context.Read<byte>(stream);
+                Console.WriteLine(string.Format("written byte: {0}", writtenByte));
             }
         }
     }
