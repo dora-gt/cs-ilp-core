@@ -56,6 +56,12 @@ namespace Sample
                 stream.Position = 0;
                 byte writtenByte = context.Read<byte>(stream);
                 Console.WriteLine(string.Format("written byte: {0}", writtenByte));
+
+                context.Write<uint>(uint.MaxValue, stream);
+                Console.WriteLine(BitConverter.ToString(stream.GetBuffer()));
+                stream.Position = 0;
+                uint writtenUint = context.Read<uint>(stream);
+                Console.WriteLine(string.Format("written uint: {0}", writtenUint));
             }
         }
     }

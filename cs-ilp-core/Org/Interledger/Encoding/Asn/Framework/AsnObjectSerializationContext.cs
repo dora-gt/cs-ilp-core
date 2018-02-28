@@ -102,7 +102,8 @@ namespace Org.Interledger.Encoding.Asn.Framework
 
             if (this._serializers.ContainsKey(type))
             {
-                serializer = (IAsnObjectSerializer<T, U>)this._serializers[type];
+                Console.WriteLine(string.Format("type: {0}", this._serializers[type].GetType()));
+                serializer = this._serializers[type] as IAsnObjectSerializer<T, U>;
                 if (serializer != null)
                 {
                     return serializer;

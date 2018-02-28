@@ -34,7 +34,9 @@ namespace Org.Interledger.Encoding.Asn.Framework
             AsnObjectSerializationContext serializers = new AsnObjectSerializationContext();
             if (OCTET_ENCODING_RULES.Equals(encodingRules))
             {
-                serializers.Register<IAsnObjectCodec<byte>, byte>(typeof(AsnUint8Codec), new AsnUint8OerSerializer());
+                serializers.Register(typeof(AsnUint8Codec), new AsnUint8OerSerializer());
+                serializers.Register(typeof(AsnUint32Codec), new AsnOctetStringOerSerializer<uint>());
+                serializers.Register(typeof(AsnUint64Codec), new AsnOctetStringOerSerializer<ulong>());
             }
             else
             {
