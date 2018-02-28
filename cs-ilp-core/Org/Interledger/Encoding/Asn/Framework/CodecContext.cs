@@ -24,17 +24,6 @@ namespace Org.Interledger.Encoding.Asn.Framework
             return this;
         }
 
-        public CodecContext Register<T, U>(IAsnObjectCodecSupplier<U> supplier, IAsnObjectSerializer<T, U> serializer) where T : IAsnObjectCodec<U>
-        {
-            Objects.RequireNonNull(supplier);
-            Objects.RequireNonNull(serializer);
-
-            //Register the mapping
-            this._mappings.Register<U>(supplier);
-
-            return this;
-        }
-
         public T Read<T>(Stream inputStream)
         {
             IAsnObjectCodec<T> asnObjectCodec = this._mappings.GetAsnObjectForType<T>();
