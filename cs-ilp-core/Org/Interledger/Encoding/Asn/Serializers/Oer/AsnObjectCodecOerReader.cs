@@ -38,5 +38,17 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
             Objects.RequireNonNull(this.Stream);
             this.AsnUint64OerSerializer.Read(asnUint64Codec, this.Stream);
         }
+
+        public void Visit(AsnOctetStringCodec asnOctetStringCodec)
+        {
+            // FIXME
+            throw new NotImplementedException();
+        }
+
+        public void Visit(AsnPrintableStringCodec asnPrintableStringCodec)
+        {
+            // FIXME
+            throw new NotImplementedException();
+        }
     }
 }
