@@ -12,5 +12,9 @@ namespace Org.Interledger.Encoding.Asn.Codecs
         void Visit(AsnOctetStringCodec asnOctetStringCodec);
 
         void Visit(AsnPrintableStringCodec asnPrintableStringCodec);
+
+        void Visit(AsnUtf8StringCodec asnUtf8StringCodec);
+
+        void Visit(AsnIA5StringCodec asnIA5StringCodec);
     }
 }

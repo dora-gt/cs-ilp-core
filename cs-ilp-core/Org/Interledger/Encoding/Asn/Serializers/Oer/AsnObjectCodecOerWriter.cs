@@ -50,5 +50,17 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
             // FIXME
             throw new NotImplementedException();
         }
+
+        public void Visit(AsnUtf8StringCodec asnUtf8StringCodec)
+        {
+            // FIXME
+            throw new NotImplementedException();
+        }
+
+        public void Visit(AsnIA5StringCodec asnIA5StringCodec)
+        {
+            // FIXME
+            throw new NotImplementedException();
+        }
     }
 }
