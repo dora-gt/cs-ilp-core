@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170628-02" />
+    <PackageReference Include="xunit" Version="2.2.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Test\" />
+    <Folder Include="Test\Org\" />
+    <Folder Include="Test\Org\Interledger\" />
+    <Folder Include="Test\Org\Interledger\Encoding\" />
+    <Folder Include="Test\Org\Interledger\Encoding\Asn\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\cs-ilp-codec-framework\cs-ilp-codec-framework.csproj" />
+    <ProjectReference Include="..\cs-ilp-core\cs-ilp-core.csproj" />
+    <ProjectReference Include="..\cs-ilp-core-codecs\cs-ilp-core-codecs.csproj" />
+  </ItemGroup>
+</Project>

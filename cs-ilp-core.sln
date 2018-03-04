@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-ilp-core-codecs", "cs-il
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-ilp-codec-framework-test", "cs-ilp-codec-framework-test\cs-ilp-codec-framework-test.csproj", "{55F3DD56-143F-4294-A9F0-3E4B36D0873F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-ilp-core-codecs-test", "cs-ilp-core-codecs-test\cs-ilp-core-codecs-test.csproj", "{2DC8332E-F866-492A-9713-E130E2110D31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{55F3DD56-143F-4294-A9F0-3E4B36D0873F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55F3DD56-143F-4294-A9F0-3E4B36D0873F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55F3DD56-143F-4294-A9F0-3E4B36D0873F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DC8332E-F866-492A-9713-E130E2110D31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DC8332E-F866-492A-9713-E130E2110D31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DC8332E-F866-492A-9713-E130E2110D31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DC8332E-F866-492A-9713-E130E2110D31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
