@@ -35,8 +35,6 @@ namespace Test.Org.Interledger.Encoding.Asn
                     Array.Clear(stream.GetBuffer(), 0, (int)stream.Length);
                 }
             }
-
-
         }
 
         [Fact]
