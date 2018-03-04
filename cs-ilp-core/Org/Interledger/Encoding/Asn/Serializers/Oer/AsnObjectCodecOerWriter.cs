@@ -12,6 +12,10 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
 
         private AsnOctetStringOerSerializer<ulong> AsnUint64OerSerializer { get; set; }
 
+        private AsnOctetStringOerSerializer<byte[]> AsnBytesOerSerializer { get; set; }
+
+        private AsnCharStringOerSerializer AsnCharStringOerSerializer { get; set; }
+
         public Stream Stream { get; set; }
 
         public AsnObjectCodecOerWriter()
@@ -19,6 +23,8 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
             this.AsnUint8OerSerializer = new AsnUint8OerSerializer();
             this.AsnUint32OerSerializer = new AsnOctetStringOerSerializer<uint>();
             this.AsnUint64OerSerializer = new AsnOctetStringOerSerializer<ulong>();
+            this.AsnBytesOerSerializer = new AsnOctetStringOerSerializer<byte[]>();
+            this.AsnCharStringOerSerializer = new AsnCharStringOerSerializer();
         }
 
         public void Visit(AsnUint8Codec asnUint8Codec)
@@ -41,26 +47,26 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
 
         public void Visit(AsnOctetStringCodec asnOctetStringCodec)
         {
-            // FIXME
-            throw new NotImplementedException();
+            Objects.RequireNonNull(this.Stream);
+            this.AsnBytesOerSerializer.Write(asnOctetStringCodec, this.Stream);
         }
 
         public void Visit(AsnPrintableStringCodec asnPrintableStringCodec)
         {
-            // FIXME
-            throw new NotImplementedException();
+            Objects.RequireNonNull(this.Stream);
+            this.AsnCharStringOerSerializer.Write(asnPrintableStringCodec, this.Stream);
         }
 
         public void Visit(AsnUtf8StringCodec asnUtf8StringCodec)
         {
-            // FIXME
-            throw new NotImplementedException();
+            Objects.RequireNonNull(this.Stream);
+            this.AsnCharStringOerSerializer.Write(asnUtf8StringCodec, this.Stream);
         }
 
         public void Visit(AsnIA5StringCodec asnIA5StringCodec)
         {
-            // FIXME
-            throw new NotImplementedException();
+            Objects.RequireNonNull(this.Stream);
+            this.AsnCharStringOerSerializer.Write(asnIA5StringCodec, this.Stream);
         }
     }
 }

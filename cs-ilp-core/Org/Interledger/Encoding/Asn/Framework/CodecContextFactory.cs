@@ -23,6 +23,30 @@ namespace Org.Interledger.Encoding.Asn.Framework
             }
         }
 
+        private class AsnUint64CodecSupplier : IAsnObjectCodecSupplier<ulong>
+        {
+            public IAsnObjectCodec<ulong> Get()
+            {
+                return new AsnUint64Codec();
+            }
+        }
+
+        private class AsnUtf8StringCodecSupplier : IAsnObjectCodecSupplier<string>
+        {
+            public IAsnObjectCodec<string> Get()
+            {
+                return new AsnUtf8StringCodec(AsnSizeConstraint.UNCONSTRAINED);
+            }
+        }
+
+        private class AsnBytesCodecSupplier : IAsnObjectCodecSupplier<byte[]>
+        {
+            public IAsnObjectCodec<byte[]> Get()
+            {
+                return new AsnOctetStringCodec(AsnSizeConstraint.UNCONSTRAINED);
+            }
+        }
+
         public static readonly String OCTET_ENCODING_RULES = "OER";
 
         public static CodecContext GetContext(String encodingRules)
@@ -30,6 +54,9 @@ namespace Org.Interledger.Encoding.Asn.Framework
             AsnObjectCodecRegistry mappings = new AsnObjectCodecRegistry();
             mappings.Register(new AnsUint8CodecSupplier());
             mappings.Register(new AsnUint32CodecSupplier());
+            mappings.Register(new AsnUint64CodecSupplier());
+            mappings.Register(new AsnUtf8StringCodecSupplier());
+            mappings.Register(new AsnBytesCodecSupplier());
 
             AsnObjectSerializationContext serializers = null;
             if (OCTET_ENCODING_RULES.Equals(encodingRules))
