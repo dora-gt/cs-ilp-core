@@ -25,7 +25,7 @@ namespace Org.Interledger.Encoding.Asn.Codecs
         public override void Encode(uint value)
         {
             byte[] bytes = new byte[4];
-            for (int i = 0; i <= 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 bytes[i] = ((byte)((value >> (InterledgerConst.BitsOfByte * (3 - i))) & 0xFF));
             }

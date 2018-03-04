@@ -32,7 +32,7 @@ namespace Org.Interledger.Encoding.Asn.Codecs
             byte[] bytes = new byte[8];
             for (int i = 0; i < 8; i++)
             {
-                bytes[i] = ((byte)((value >> (InterledgerConst.BitsOfByte * (8 - i))) & 0xFF));
+                bytes[i] = ((byte)((value >> (InterledgerConst.BitsOfByte * (7 - i))) & 0xFF));
             }
             this.Bytes = bytes;
         }
