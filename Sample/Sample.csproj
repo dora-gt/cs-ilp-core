@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\cs-ilp-codec-framework\cs-ilp-codec-framework.csproj" />
     <ProjectReference Include="..\cs-ilp-core\cs-ilp-core.csproj" />
   </ItemGroup>
   <ItemGroup>

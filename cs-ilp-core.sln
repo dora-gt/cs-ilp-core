@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-ilp-codec-framework", "c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "Sample\Sample.csproj", "{08EC3169-AB76-4225-8F15-4520B3FFA169}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-ilp-core", "cs-ilp-core\cs-ilp-core.csproj", "{9175C512-431C-437C-86E6-9078A16BD684}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ilp-core-codecs", "ilp-core-codecs\ilp-core-codecs.csproj", "{2238EB12-4F97-4E10-BA6A-415F9A189EF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +23,14 @@ Global
 		{08EC3169-AB76-4225-8F15-4520B3FFA169}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08EC3169-AB76-4225-8F15-4520B3FFA169}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08EC3169-AB76-4225-8F15-4520B3FFA169}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9175C512-431C-437C-86E6-9078A16BD684}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9175C512-431C-437C-86E6-9078A16BD684}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9175C512-431C-437C-86E6-9078A16BD684}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9175C512-431C-437C-86E6-9078A16BD684}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2238EB12-4F97-4E10-BA6A-415F9A189EF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2238EB12-4F97-4E10-BA6A-415F9A189EF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2238EB12-4F97-4E10-BA6A-415F9A189EF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2238EB12-4F97-4E10-BA6A-415F9A189EF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
