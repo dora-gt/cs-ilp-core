@@ -23,6 +23,7 @@ namespace Test.Org.Interledger.Encoding.Asn
                     stream.Position = 0;
                     writtenByte = context.Read<byte>(stream);
 
+                    System.Console.WriteLine(string.Format("original byte: {0}, read byte: {1}", byteValue, BitConverter.ToString(BitConverter.GetBytes(writtenByte))));
                     Assert.Equal(byteValue, writtenByte);
 
                     if (byteValue == byte.MaxValue)
@@ -52,6 +53,7 @@ namespace Test.Org.Interledger.Encoding.Asn
                     stream.Position = 0;
                     writtenUint = context.Read<uint>(stream);
 
+                    System.Console.WriteLine(string.Format("original uint: {0}, read uint: {1}", uintValue, BitConverter.ToString(BitConverter.GetBytes(writtenUint))));
                     Assert.Equal(uintValue, writtenUint);
 
                     if (uintValue == uint.MaxValue)
@@ -81,6 +83,7 @@ namespace Test.Org.Interledger.Encoding.Asn
                     stream.Position = 0;
                     writtenUlong = context.Read<ulong>(stream);
 
+                    System.Console.WriteLine(string.Format("original ulong: {0}, read ulong: {1}", ulongValue, BitConverter.ToString(BitConverter.GetBytes(writtenUlong))));
                     Assert.Equal(ulongValue, writtenUlong);
 
                     if (ulongValue == ulong.MaxValue)
