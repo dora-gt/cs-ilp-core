@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "Sample\Sample.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-ilp-core", "cs-ilp-core\cs-ilp-core.csproj", "{9175C512-431C-437C-86E6-9078A16BD684}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ilp-core-codecs", "ilp-core-codecs\ilp-core-codecs.csproj", "{2238EB12-4F97-4E10-BA6A-415F9A189EF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-ilp-core-codecs", "cs-ilp-core-codecs\cs-ilp-core-codecs.csproj", "{2238EB12-4F97-4E10-BA6A-415F9A189EF5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-ilp-codec-framework-test", "cs-ilp-codec-framework-test\cs-ilp-codec-framework-test.csproj", "{55F3DD56-143F-4294-A9F0-3E4B36D0873F}"
 EndProject
