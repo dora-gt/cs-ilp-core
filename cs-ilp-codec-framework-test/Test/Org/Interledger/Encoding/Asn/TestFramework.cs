@@ -118,5 +118,39 @@ namespace Test.Org.Interledger.Encoding.Asn
                 Assert.Equal<byte[]>(testData, writtenBytes);
             }
         }
+
+        [Fact]
+        public void TestStringUtf8()
+        {
+            CodecContext context = CodecContextFactory.GetContext(CodecContextFactory.OCTET_ENCODING_RULES);
+            string strToWrite = "aiueo";
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                stream.Position = 0;
+                context.Write<string>(strToWrite, stream);
+                stream.Position = 0;
+                string writtenString = context.Read<string>(stream);
+
+                Assert.Equal(strToWrite, writtenString);
+            }
+        }
+
+        [Fact]
+        public void TestStringUtf8MultiBytes()
+        {
+            CodecContext context = CodecContextFactory.GetContext(CodecContextFactory.OCTET_ENCODING_RULES);
+            string strToWrite = "これはマルチバイトの日本語のテストです。";
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                stream.Position = 0;
+                context.Write<string>(strToWrite, stream);
+                stream.Position = 0;
+                string writtenString = context.Read<string>(stream);
+
+                Assert.Equal(strToWrite, writtenString);
+            }
+        }
     }
 }
