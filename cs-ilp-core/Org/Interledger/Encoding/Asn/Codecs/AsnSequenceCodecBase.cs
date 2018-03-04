@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace Org.Interledger.Encoding.Asn.Codecs
 {
+    // We don't use sequence serializer in C#
+
+    /*
     public abstract class AsnSequenceCodecBase<T> : AsnObjectCodecBase<T>
     {
         // object = AsnObjectCodec
@@ -64,4 +67,5 @@ namespace Org.Interledger.Encoding.Asn.Codecs
             return string.Format("AsnSequenceCodec{{sequence={0}}}", String.Concat(this.sequence, ", "));
         }
     }
+    */
 }
