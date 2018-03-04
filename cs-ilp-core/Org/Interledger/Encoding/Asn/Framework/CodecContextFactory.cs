@@ -1,52 +1,12 @@
 ﻿using System;
 
-using Org.Interledger.Encoding.Asn.Codecs;
+using Org.Interledger.Encoding.Asn.Codecs.Suppliers;
 using Org.Interledger.Encoding.Asn.Serializers.Oer;
 
 namespace Org.Interledger.Encoding.Asn.Framework
 {
     public class CodecContextFactory
     {
-        private class AnsUint8CodecSupplier : IAsnObjectCodecSupplier<byte>
-        {
-            public IAsnObjectCodec<byte> Get()
-            {
-                return new AsnUint8Codec();
-            }
-        }
-
-        private class AsnUint32CodecSupplier : IAsnObjectCodecSupplier<uint>
-        {
-            public IAsnObjectCodec<uint> Get()
-            {
-                return new AsnUint32Codec();
-            }
-        }
-
-        private class AsnUint64CodecSupplier : IAsnObjectCodecSupplier<ulong>
-        {
-            public IAsnObjectCodec<ulong> Get()
-            {
-                return new AsnUint64Codec();
-            }
-        }
-
-        private class AsnUtf8StringCodecSupplier : IAsnObjectCodecSupplier<string>
-        {
-            public IAsnObjectCodec<string> Get()
-            {
-                return new AsnUtf8StringCodec(AsnSizeConstraint.UNCONSTRAINED);
-            }
-        }
-
-        private class AsnBytesCodecSupplier : IAsnObjectCodecSupplier<byte[]>
-        {
-            public IAsnObjectCodec<byte[]> Get()
-            {
-                return new AsnOctetStringCodec(AsnSizeConstraint.UNCONSTRAINED);
-            }
-        }
-
         public static readonly String OCTET_ENCODING_RULES = "OER";
 
         public static CodecContext GetContext(String encodingRules)
