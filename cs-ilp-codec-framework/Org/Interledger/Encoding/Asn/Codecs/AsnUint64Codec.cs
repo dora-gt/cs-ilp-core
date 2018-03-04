@@ -29,13 +29,6 @@ namespace Org.Interledger.Encoding.Asn.Codecs
 
         public override void Encode(ulong value)
         {
-            if (18446744073709551615 < value || value < 0)
-            {
-                throw new ArgumentOutOfRangeException(
-                    string.Format("Uint64 only supports values from 0 to 18446744073709551615, value {0} is out of range.", value)
-                );
-            }
-
             byte[] bytes = new byte[8];
             for (int i = 0; i < 8; i++)
             {

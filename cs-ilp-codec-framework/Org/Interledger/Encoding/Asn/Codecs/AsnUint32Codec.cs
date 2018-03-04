@@ -24,13 +24,6 @@ namespace Org.Interledger.Encoding.Asn.Codecs
 
         public override void Encode(uint value)
         {
-            if (4294967295L < value || value < 0)
-            {
-                throw new ArgumentOutOfRangeException(
-                    string.Format("Uint32 only supports values from 0 to 4294967295, value {0} is out of range.", value)
-                );
-            }
-
             byte[] bytes = new byte[4];
             for (int i = 0; i <= 3; i++)
             {
