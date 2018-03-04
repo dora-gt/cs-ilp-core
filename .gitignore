@@ -458,5 +458,8 @@ Temporary Items
 # By default, sensitive information, such as encrypted password
 # should be stored in the .pubxml.user file.
 
+# VisualStudio Code
+.vscode
+
 
 # End of https://www.gitignore.io/api/macos,csharp,visualstudio
