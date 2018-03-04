@@ -64,6 +64,14 @@ namespace Sample
                 stream.Position = 0;
                 uint writtenUint = context.Read<uint>(stream);
                 Console.WriteLine(string.Format("written uint: {0}", writtenUint));
+
+                stream.Position = 0;
+                context.Write<ulong>(ulong.MaxValue, stream);
+                Console.WriteLine(BitConverter.ToString(stream.GetBuffer()));
+                stream.Position = 0;
+                ulong writtenUlong = context.Read<ulong>(stream);
+                Console.WriteLine(writtenUlong);
+                Console.WriteLine(string.Format("written ulong: {0}", writtenUlong));
             }
         }
     }

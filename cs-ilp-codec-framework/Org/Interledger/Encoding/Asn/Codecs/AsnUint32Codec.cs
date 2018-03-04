@@ -14,7 +14,7 @@ namespace Org.Interledger.Encoding.Asn.Codecs
         {
             byte[] bytes = this.Bytes;
             uint value = 0;
-            for (int i = 0; i <= 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 value <<= InterledgerConst.BitsOfByte;
                 value |= (byte)(bytes[i] & 0xFF);

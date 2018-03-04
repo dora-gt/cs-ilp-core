@@ -18,8 +18,8 @@ namespace Org.Interledger.Encoding.Asn.Codecs
         public override ulong Decode()
         {
             byte[] bytes = this.Bytes;
-            uint value = 0;
-            for (int i = 0; i <= 8; i++)
+            ulong value = 0;
+            for (int i = 0; i < 8; i++)
             {
                 value <<= InterledgerConst.BitsOfByte;
                 value |= (byte)(bytes[i] & 0xFF);
