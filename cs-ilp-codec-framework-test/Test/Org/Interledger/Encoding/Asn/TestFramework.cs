@@ -97,5 +97,26 @@ namespace Test.Org.Interledger.Encoding.Asn
                 }
             }
         }
+
+        [Fact]
+        public void TestBytes()
+        {
+            CodecContext context = CodecContextFactory.GetContext(CodecContextFactory.OCTET_ENCODING_RULES);
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                Random rand = new Random();
+                byte[] testData = new Byte[1024 * 1024];
+                rand.NextBytes(testData);
+
+                stream.Position = 0;
+                context.Write<byte[]>(testData, stream);
+                stream.Position = 0;
+                byte[] writtenBytes = context.Read<byte[]>(stream);
+
+                Assert.Equal(testData.Length, writtenBytes.Length);
+                Assert.Equal<byte[]>(testData, writtenBytes);
+            }
+        }
     }
 }
