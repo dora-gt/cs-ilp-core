@@ -25,7 +25,7 @@ namespace Org.Interledger.Encoding.Asn.Codecs
             else
             {
                 throw new FormatException(string.Format(
-                    "Interledger timestamps only support values in the format 'YYYYMMDDHHMMSSfff', value {0} is invalid.", this.CharString
+                    "Interledger timestamps only support values in the format '{0}', value {1} is invalid.", this.DateTimeFormatter, this.CharString
                 ));
             }
         }
