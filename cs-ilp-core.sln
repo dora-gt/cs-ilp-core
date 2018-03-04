@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-ilp-core", "cs-ilp-core\cs-ilp-core.csproj", "{E5AA9804-C556-48B9-AA49-3BE5A3CB1F95}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-ilp-codec-framework", "cs-ilp-codec-framework\cs-ilp-codec-framework.csproj", "{E5AA9804-C556-48B9-AA49-3BE5A3CB1F95}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "Sample\Sample.csproj", "{08EC3169-AB76-4225-8F15-4520B3FFA169}"
 EndProject
