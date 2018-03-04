@@ -51,27 +51,62 @@ namespace Sample
 
             using (MemoryStream stream = new MemoryStream())
             {
-                stream.Position = 0;
-                context.Write<byte>(100, stream);
-                Console.WriteLine(BitConverter.ToString(stream.GetBuffer()));
-                stream.Position = 0;
-                byte writtenByte = context.Read<byte>(stream);
-                Console.WriteLine(string.Format("written byte: {0}", writtenByte));
+                byte writtenByte = 0;
+                for (byte byteValue = 0; byteValue <= byte.MaxValue; )
+                {
+                    stream.Position = 0;
+                    context.Write<byte>(byteValue, stream);
+                    stream.Position = 0;
+                    writtenByte = context.Read<byte>(stream);
+                    System.Diagnostics.Debug.Assert(byteValue == writtenByte, string.Format("byte value differs! wrote: {0} read: {1}", byteValue, writtenByte));
+                    Console.WriteLine(string.Format("written byte: {0}, confirmed: {1}", writtenByte, byteValue == writtenByte));
 
-                stream.Position = 0;
-                context.Write<uint>(uint.MaxValue, stream);
-                Console.WriteLine(BitConverter.ToString(stream.GetBuffer()));
-                stream.Position = 0;
-                uint writtenUint = context.Read<uint>(stream);
-                Console.WriteLine(string.Format("written uint: {0}", writtenUint));
+                    if (byteValue == byte.MaxValue)
+                    {
+                        break;
+                    }
 
-                stream.Position = 0;
-                context.Write<ulong>(ulong.MaxValue, stream);
-                Console.WriteLine(BitConverter.ToString(stream.GetBuffer()));
-                stream.Position = 0;
-                ulong writtenUlong = context.Read<ulong>(stream);
-                Console.WriteLine(writtenUlong);
-                Console.WriteLine(string.Format("written ulong: {0}", writtenUlong));
+                    byteValue <<= 1;
+                    byteValue |= 1;
+                }
+
+                uint writtenUint = 0;
+                for (uint uintValue = 0; uintValue <= uint.MaxValue; )
+                {
+                    stream.Position = 0;
+                    context.Write<uint>(uintValue, stream);
+                    stream.Position = 0;
+                    writtenUint = context.Read<uint>(stream);
+                    System.Diagnostics.Debug.Assert(uintValue == writtenUint, string.Format("uint value differs! wrote: {0} read: {1}", uintValue, writtenUint));
+                    Console.WriteLine(string.Format("written uint: {0}, confirmed: {1}", writtenUint, uintValue == writtenUint));
+
+                    if (uintValue == uint.MaxValue)
+                    {
+                        break;
+                    }
+
+                    uintValue <<= 1;
+                    uintValue |= 1;
+                }
+
+                ulong writtenUlong = 0;
+                for (ulong ulongValue = 0; ulongValue <= ulong.MaxValue; )
+                {
+                    stream.Position = 0;
+                    context.Write<ulong>(ulongValue, stream);
+                    stream.Position = 0;
+                    writtenUlong = context.Read<ulong>(stream);
+                    System.Diagnostics.Debug.Assert(ulongValue == writtenUlong, string.Format("ulong value differs! wrote: {0}, read: {1}", ulongValue, writtenUlong));
+                    Console.WriteLine(string.Format("written ulong: {0}, confirmed: {1}", writtenUlong, ulongValue == writtenUlong));
+
+                    if (ulongValue == ulong.MaxValue)
+                    {
+                        break;
+                    }
+
+                    ulongValue <<= 1;
+                    ulongValue |= 1;
+                }
             }
         }
     }
