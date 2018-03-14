@@ -5,20 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Org\.DS_Store" />
-    <None Remove="Org\Interledger\.DS_Store" />
+    <Compile Remove="Class1.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Org\Interledger\Core\InterledgerPacket\" />
-    <Folder Include="Org\Interledger\Encoding\" />
-    <Folder Include="Org\Interledger\Encoding\Asn\" />
-    <Folder Include="Org\Interledger\Encoding\Asn\Framework\" />
-    <Folder Include="Org\Interledger\Encoding\Asn\Codecs\" />
-    <Folder Include="Org\Interledger\Encoding\Asn\Serializers\" />
-    <Folder Include="Org\Interledger\Encoding\Asn\Serializers\Oer\" />
-    <Folder Include="Org\Interledger\Core\PSK2\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Org\Interledger\Core\SharedSecret.cs" />
+    <Folder Include="Org\" />
+    <Folder Include="Org\Interledger\" />
+    <Folder Include="Org\Core\" />
   </ItemGroup>
 </Project>

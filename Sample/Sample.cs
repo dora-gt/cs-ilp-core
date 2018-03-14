@@ -41,30 +41,6 @@ namespace Sample
 
             ISender sender = new Sender(sharedSecret);
             IReceiver receiver = new Receiver(sharedSecret);
-
-            Codec();
-        }
-
-        private static void Codec()
-        {
-            CodecContext context = CodecContextFactory.GetContext(CodecContextFactory.OCTET_ENCODING_RULES);
-
-            using (MemoryStream stream = new MemoryStream())
-            {
-                stream.Position = 0;
-                context.Write<byte>(100, stream);
-                Console.WriteLine(BitConverter.ToString(stream.GetBuffer()));
-                stream.Position = 0;
-                byte writtenByte = context.Read<byte>(stream);
-                Console.WriteLine(string.Format("written byte: {0}", writtenByte));
-
-                stream.Position = 0;
-                context.Write<uint>(uint.MaxValue, stream);
-                Console.WriteLine(BitConverter.ToString(stream.GetBuffer()));
-                stream.Position = 0;
-                uint writtenUint = context.Read<uint>(stream);
-                Console.WriteLine(string.Format("written uint: {0}", writtenUint));
-            }
         }
     }
 }

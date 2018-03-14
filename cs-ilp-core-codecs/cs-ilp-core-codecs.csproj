@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\cs-ilp-codec-framework\cs-ilp-codec-framework.csproj" />
+    <ProjectReference Include="..\cs-ilp-core\cs-ilp-core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Org\" />
+    <Folder Include="Org\Interledger\" />
+    <Folder Include="Org\Interledger\Encoding\" />
+    <Folder Include="Org\Interledger\Encoding\Asn\" />
+    <Folder Include="Org\Interledger\Encoding\Asn\Codecs\" />
+    <Folder Include="Org\Interledger\Encoding\Asn\Framework\" />
+    <Folder Include="Org\Interledger\Encoding\Asn\Serializers\" />
+  </ItemGroup>
+</Project>
