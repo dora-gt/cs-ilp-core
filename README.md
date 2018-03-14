@@ -24,7 +24,7 @@ Just aim to make it simple and easy to understand.
 
 ## License
 ### cs-ilp-core
-- [MIT License](LICENSE.txt)
+- [MIT License](LICENSE)
 
 ### Hyperledger Quilt
 - Apache License 2.0
