@@ -7,7 +7,7 @@ using Org.Interledger.Encoding.Asn.Codecs;
 
 namespace Org.Interledger.Encoding.Asn.Serializers.Oer
 {
-    public class AsnCharStringOerSerializer : IAsnObjectSerializer<AsnCharStringBasedObjectCodecBase<string>, string>
+    public class AsnCharStringOerSerializer : IAsnObjectSerializer<AsnCharStringBasedObjectCodecBase<string>>
     {
         public void Read(AsnCharStringBasedObjectCodecBase<string> instance, Stream inputStream)
         {

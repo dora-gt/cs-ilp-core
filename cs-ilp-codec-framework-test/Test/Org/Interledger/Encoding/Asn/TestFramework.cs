@@ -3,6 +3,8 @@ using System.IO;
 using Xunit;
 
 using Org.Interledger.Encoding.Asn.Framework;
+using Org.Interledger.Encoding.Asn.Codecs;
+using Org.Interledger.Encoding.Asn.Serializers.Oer;
 
 namespace Test.Org.Interledger.Encoding.Asn
 {
@@ -150,6 +152,20 @@ namespace Test.Org.Interledger.Encoding.Asn
                 string writtenString = context.Read<string>(stream);
 
                 Assert.Equal(strToWrite, writtenString);
+            }
+        }
+
+        [Fact]
+        public void TestRawSerialization()
+        {
+            AsnOctetStringCodec asnOctetStringCodec = new AsnOctetStringCodec(AsnSizeConstraint.UNCONSTRAINED);
+            asnOctetStringCodec.Encode(new byte[] { 0, 1, 2, 3, 4, 5});
+
+            AsnOctetStringOerSerializer<byte[]> serializer = new AsnOctetStringOerSerializer<byte[]>();
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                serializer.Write(asnOctetStringCodec, stream);
             }
         }
     }

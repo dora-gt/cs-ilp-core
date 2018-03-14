@@ -27,7 +27,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
         public T Read<T>(Stream inputStream)
         {
             IAsnObjectCodec<T> asnObjectCodec = this._mappings.GetAsnObjectForType<T>();
-            this._serializers.Read<IAsnObjectCodec<T>, T>(asnObjectCodec, inputStream);
+            this._serializers.Read(asnObjectCodec, inputStream);
             return asnObjectCodec.Decode();
         }
 
@@ -35,7 +35,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
         {
             IAsnObjectCodec<T> asnObjectCodec = this._mappings.GetAsnObjectForType<T>();
             asnObjectCodec.Encode(instance);
-            this._serializers.Write<IAsnObjectCodec<T>, T>(asnObjectCodec, outputStream);
+            this._serializers.Write(asnObjectCodec, outputStream);
         }
     }
 }

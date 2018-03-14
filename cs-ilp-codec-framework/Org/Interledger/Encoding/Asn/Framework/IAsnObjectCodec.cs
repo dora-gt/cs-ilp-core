@@ -9,7 +9,5 @@ namespace Org.Interledger.Encoding.Asn.Framework
         T Decode();
 
         void Encode(T value);
-
-        void Accept(IAsnObjectCodecVisitor visitor);
     }
 }

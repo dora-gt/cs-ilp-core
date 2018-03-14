@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Org.Interledger.Encoding.Asn.Serializers.Oer
 {
-    public class AsnOctetStringOerSerializer<T> : IAsnObjectSerializer<AsnOctetStringBasedObjectCodecBase<T>, T>
+    public class AsnOctetStringOerSerializer<T> : IAsnObjectSerializer<AsnOctetStringBasedObjectCodecBase<T>>
     {
         public void Read(AsnOctetStringBasedObjectCodecBase<T> instance, Stream inputStream)
         {

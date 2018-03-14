@@ -16,11 +16,6 @@ namespace Org.Interledger.Encoding.Asn.Codecs
         {
         }
 
-        public override void Accept(IAsnObjectCodecVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
-
         public override byte[] Decode()
         {
             return this.Bytes;

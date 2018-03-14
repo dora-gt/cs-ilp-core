@@ -32,11 +32,6 @@ namespace Org.Interledger.Encoding.Asn.Codecs
             this.Bytes = bytes;
         }
 
-        public override void Accept(IAsnObjectCodecVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
-
         public override string ToString()
         {
             return string.Format("AsnUint32Codec{{value={0}}}", this.Decode());

@@ -35,11 +35,6 @@ namespace Org.Interledger.Encoding.Asn.Codecs
             this.CharString = value.ToString(this.DateTimeFormatter);
         }
 
-        public override void Accept(IAsnObjectCodecVisitor visitor)
-        {
-            throw new NotImplementedException();
-        }
-
         private string GetRegex()
         {
             return "[0-9]{17}";

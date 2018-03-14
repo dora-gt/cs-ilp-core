@@ -17,11 +17,6 @@ namespace Org.Interledger.Encoding.Asn.Codecs
             this.CharString = value;
         }
 
-        public override void Accept(IAsnObjectCodecVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
-
         public override string ToString()
         {
             return string.Format("IA5String{{value={0}}}", this.Decode());
