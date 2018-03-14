@@ -21,3 +21,10 @@ Just aim to make it simple and easy to understand.
 
 ## Code Formatting
 - Use [policy file](dev-tools/cs-ilp-core.mdpolicy).
+
+## License
+### cs-ilp-core
+- [MIT License](LICENSE)
+
+### Hyperledger Quilt
+- Apache License 2.0
