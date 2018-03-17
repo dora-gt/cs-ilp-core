@@ -4,6 +4,7 @@ using Org.Interledger.Encoding.Asn.Framework;
 
 namespace Org.Interledger.Encoding.Asn.Codecs
 {
+    // FIXME イベント系が未実装っちゃ未実装。いったん置きでより大きな問題に対処する
     public abstract class AsnObjectCodecBase<T> : IAsnObjectCodec<T>
     {
         public event Action<T> Encoded = delegate {};

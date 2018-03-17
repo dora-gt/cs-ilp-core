@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Org.Interledger.Encoding.Asn.Codecs.Suppliers;
 using Org.Interledger.Encoding.Asn.Serializers.Oer;
@@ -22,16 +23,16 @@ namespace Org.Interledger.Encoding.Asn.Framework
             AsnObjectSerializationContext serializers = new AsnObjectSerializationContext();
             if (OCTET_ENCODING_RULES.Equals(encodingRules))
             {
-                serializers.Register<IAsnObjectCodec<byte>, byte>(typeof(AsnUint8Codec), new AsnUint8OerSerializer());
-                serializers.Register<AsnOctetStringBasedObjectCodecBase<uint>, uint>(typeof(AsnUint32Codec), new AsnOctetStringOerSerializer<uint>());
-                serializers.Register<AsnOctetStringBasedObjectCodecBase<ulong>, ulong>(typeof(AsnUint64Codec), new AsnOctetStringOerSerializer<ulong>());
-                serializers.Register<AsnCharStringBasedObjectCodecBase<string>, string>(typeof(AsnUtf8StringCodec), new AsnCharStringOerSerializer());
-                // serializers.Register(typeof(AsnUtf8StringBasedObjectCodecBase), new());
-                serializers.Register<AsnOctetStringBasedObjectCodecBase<byte[]>, byte[]>(typeof(AsnOctetStringCodec), new AsnOctetStringOerSerializer<byte[]>());
-                // serializers.Register(typeof(AsnOctetStringBasedObjectCodecBase), new AsnOctetStringOerSerializer());
-                serializers.Register<AsnCharStringBasedObjectCodecBase<string>, string>(typeof(AsnIA5StringCodec), new AsnCharStringOerSerializer());
-                // serializers.Register(typeof(AsnIA5StringBasedObjectCodecBase), new AsnCharStringOerSerializer());
-                // serializers.Register(typeof(AsnCharStringBasedObjectCodecBase), new AsnCharStringOerSerializer());
+                serializers.Register(typeof(AsnUint8Codec), new AsnUint8OerSerializer());
+                serializers.Register(typeof(AsnUint32Codec), new AsnOctetStringOerSerializer());
+                serializers.Register(typeof(AsnUint64Codec), new AsnOctetStringOerSerializer());
+                serializers.Register(typeof(AsnUtf8StringCodec), new AsnCharStringOerSerializer());
+                serializers.Register(typeof(AsnUtf8StringBasedObjectCodecBase<>), new AsnCharStringOerSerializer());
+                serializers.Register(typeof(AsnOctetStringCodec), new AsnOctetStringOerSerializer());
+                serializers.Register(typeof(AsnOctetStringBasedObjectCodecBase<>), new AsnOctetStringOerSerializer());
+                serializers.Register(typeof(AsnIA5StringCodec), new AsnCharStringOerSerializer());
+                serializers.Register(typeof(AsnIA5StringBasedObjectCodecBase<>), new AsnCharStringOerSerializer());
+                serializers.Register(typeof(AsnCharStringBasedObjectCodecBase<>), new AsnCharStringOerSerializer());
                 // serializers.Register(typeof(AsnSequenceCodecBase), new AsnSequenceOerSerializer());
                 // serializers.Register(typeof(AsnSequenceOfSequenceCodec), new AsnSequenceOfSequenceOerSerializer());
                 // serializers.Register(typeof(AsnOpenTypeCodec), new AsnOpenTypeOerSerializer());

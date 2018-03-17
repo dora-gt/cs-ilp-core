@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Org.Interledger.Encoding.Asn.Codecs
 {
-    public class AsnUtf8StringCodec : AsnUtf8StringBasedObjectCodecBase<String>
+    public class AsnUtf8StringCodec : AsnUtf8StringBasedObjectCodecBase<string>
     {
         public AsnUtf8StringCodec(AsnSizeConstraint sizeConstraint) : base(sizeConstraint)
         {
