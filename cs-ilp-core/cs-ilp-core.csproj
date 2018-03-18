@@ -6,10 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="Class1.cs" />
+    <Compile Remove="Org\Interledger\Core\InterledgerPacket\IPacket.cs" />
+    <Compile Remove="Org\Interledger\Core\InterledgerPacket\PacketTypes.cs" />
+    <Compile Remove="Org\Interledger\Core\InterledgerPacket\PreparePacket.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Org\" />
     <Folder Include="Org\Interledger\" />
-    <Folder Include="Org\Core\" />
+    <Folder Include="Org\Interledger\Core\" />
   </ItemGroup>
 </Project>
