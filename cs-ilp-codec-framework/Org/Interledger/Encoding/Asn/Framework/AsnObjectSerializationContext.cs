@@ -126,6 +126,15 @@ namespace Org.Interledger.Encoding.Asn.Framework
                 {
                     return serializer;
                 }
+
+                if (type.BaseType.IsGenericType)
+                {
+                    serializer = this.TryGetSerializerForCodec(type.BaseType.GetGenericTypeDefinition());
+                    if (serializer != null)
+                    {
+                        return serializer;
+                    }
+                }
             }
 
             foreach (Type interfaceType in type.GetInterfaces())

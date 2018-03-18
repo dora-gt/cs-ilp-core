@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace Org.Interledger.Encoding.Asn.Codecs
 {
-    public abstract class AsnSequenceCodecBase<T> : AsnObjectCodecBase<T>
+    public abstract class AsnSequenceCodecBase<T> : AsnObjectCodecBase<T>, IAsnSequenceCodec
     {
         // object = AsnObjectCodec
-        private readonly List<object> sequence = null;
+        private readonly List<object> sequence = new List<object>();
 
         public int Size { get { return this.sequence.Count; } }
 
