@@ -5,7 +5,7 @@ using Org.Interledger.Encoding.Asn.Framework;
 
 namespace Org.Interledger.Encoding.Asn.Codecs
 {
-    public abstract class AsnOctetStringBasedObjectCodecBase<T> : AsnPrimitiveCodecBase<T>
+    public abstract class AsnOctetStringBasedObjectCodecBase<T> : AsnPrimitiveCodecBase<T>, IAsnOctetStringBasedObjectCodec
     {
         private byte[] _bytes;
 

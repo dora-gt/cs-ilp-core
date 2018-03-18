@@ -16,10 +16,16 @@ namespace Org.Interledger.Encoding.Asn.Framework
             this._serializers = new ConcurrentDictionary<Type, object>();
         }
 
-        public AsnObjectSerializationContext Register<T, U>(Type type, IAsnObjectSerializer<T> serializer) where T : class, IAsnObjectCodec<U>
+        public AsnObjectSerializationContext Register(Type type, object serializer)
         {
             Objects.RequireNonNull(type);
             Objects.RequireNonNull(serializer);
+
+            Type serializerInterface = serializer.GetType().GetInterface(typeof(IAsnObjectSerializer<>));
+            if (serializerInterface == null)
+            {
+                throw new Exception(string.Format("serializer must implement IAsnObjectSerializer! serializer: {0}", serializer));
+            }
 
             this._serializers.Add(type, serializer);
 
@@ -128,6 +134,15 @@ namespace Org.Interledger.Encoding.Asn.Framework
                 if (serializer != null)
                 {
                     return serializer;
+                }
+
+                if (interfaceType.IsGenericType)
+                {
+                    serializer = this.TryGetSerializerForCodec(interfaceType.GetGenericTypeDefinition());
+                    if (serializer != null)
+                    {
+                        return serializer;
+                    }
                 }
             }
 

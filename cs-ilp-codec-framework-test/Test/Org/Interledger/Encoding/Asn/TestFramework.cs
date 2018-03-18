@@ -161,7 +161,7 @@ namespace Test.Org.Interledger.Encoding.Asn
             AsnOctetStringCodec asnOctetStringCodec = new AsnOctetStringCodec(AsnSizeConstraint.UNCONSTRAINED);
             asnOctetStringCodec.Encode(new byte[] { 0, 1, 2, 3, 4, 5});
 
-            AsnOctetStringOerSerializer<byte[]> serializer = new AsnOctetStringOerSerializer<byte[]>();
+            AsnOctetStringOerSerializer serializer = new AsnOctetStringOerSerializer();
 
             using (MemoryStream stream = new MemoryStream())
             {
