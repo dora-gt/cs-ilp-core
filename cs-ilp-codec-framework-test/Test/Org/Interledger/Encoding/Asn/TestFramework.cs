@@ -168,5 +168,65 @@ namespace Test.Org.Interledger.Encoding.Asn
                 serializer.Write(asnOctetStringCodec, stream);
             }
         }
+
+        [Fact]
+        public void TestMyCustomObjectEquality()
+        {
+            MyCustomObject o1 = new MyCustomObject()
+            {
+                Utf8StringProperty = "aiueo",
+                FixedLengthUtf8StringProperty = "kakikukeko",
+                Uint8Property = 100,
+                Uint32Property = 1000,
+                Uint64Property = 10000,
+                OctetStringProperty = new byte[] { 1, 2, 3, 4, 5 },
+                FixedLengthOctetStringProperty = new byte[] { 1, 2, 3, 4, 5 },
+            };
+
+            MyCustomObject o2 = new MyCustomObject()
+            {
+                Utf8StringProperty = "aiueo",
+                FixedLengthUtf8StringProperty = "kakikukeko",
+                Uint8Property = 100,
+                Uint32Property = 1000,
+                Uint64Property = 10000,
+                OctetStringProperty = new byte[] { 1, 2, 3, 4, 5 },
+                FixedLengthOctetStringProperty = new byte[] { 1, 2, 3, 4, 5 },
+            };
+
+            Assert.Equal(true, o1.Equals(o2));
+        }
+
+        [Fact]
+        public void TestSequence()
+        {
+            CodecContext context = CodecContextFactory.GetContext(CodecContextFactory.OCTET_ENCODING_RULES);
+            context.Register<AsnSequenceCodecBase<MyCustomObject>, MyCustomObject>(new AsnMyCustomObjectCodecSupplier());
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                MyCustomObject o1 = new MyCustomObject()
+                {
+                    Utf8StringProperty = "aiueo",
+                    FixedLengthUtf8StringProperty = "kaki",
+                    Uint8Property = 100,
+                    Uint32Property = 1000,
+                    Uint64Property = 10000,
+                    OctetStringProperty = new byte[] { 1, 2, 3, 4, 5 },
+                    FixedLengthOctetStringProperty = new byte[] {
+                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                        11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                        21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                        31, 32
+                    },
+                };
+
+                stream.Position = 0;
+                context.Write<MyCustomObject>(o1, stream);
+                stream.Position = 0;
+                MyCustomObject writtenMyCustomObject = context.Read<MyCustomObject>(stream);
+                Assert.Equal(o1, writtenMyCustomObject);
+            }
+        }
     }
 }
