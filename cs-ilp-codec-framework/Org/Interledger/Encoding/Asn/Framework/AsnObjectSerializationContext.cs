@@ -24,11 +24,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
             Type serializerInterface = serializer.GetType().GetInterface(typeof(IAsnObjectSerializer<>));
             if (serializerInterface == null)
             {
-                throw new Exception(string.Format("serializer must implement IAsnObjectSerializer!"));
-            }
-            if (serializerInterface.GetGenericArgument(typeof(IAsnObjectCodec<>)) == null)
-            {
-                throw new Exception(string.Format("IAsnObjectSerializer must have generic argument of IAsnObjectCodec<>!"));
+                throw new Exception(string.Format("serializer must implement IAsnObjectSerializer! serializer: {0}", serializer));
             }
 
             this._serializers.Add(type, serializer);
