@@ -35,7 +35,7 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
         {
             CodecContext context = CodecContextFactory.GetContext(CodecContextFactory.OCTET_ENCODING_RULES);
             context.Register<SampleSequenceCodec, SampleSequence>(new SampleSequenceCodecSupplier());
-            context.Register<SampleSequenceOfSequenceCodec, SampleSequenceOfSequence>(new SampleSequenceOfSequenceCodecSupplier(), new AsnSequenceOfSequenceOerSerializer(context.SerializationContext));
+            context.Register<SampleSequenceOfSequenceCodec, SampleSequenceOfSequence>(new SampleSequenceOfSequenceCodecSupplier());
 
             SampleSequenceOfSequence ssos = new SampleSequenceOfSequence();
             ssos.Add(new SampleSequence(0, 1, 2));
