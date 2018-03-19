@@ -17,6 +17,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
             mappings.Register(new AnsUint8CodecSupplier());
             mappings.Register(new AsnUint32CodecSupplier());
             mappings.Register(new AsnUint64CodecSupplier());
+            mappings.Register(new AsnUintCodecSupplier());
             mappings.Register(new AsnUtf8StringCodecSupplier());
             mappings.Register(new AsnBytesCodecSupplier());
 

@@ -1,67 +1,73 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
-/*
+using Org.Interledger.Encoding.Asn.Framework;
+
 namespace Org.Interledger.Encoding.Asn.Codecs
 {
-    public class AsnSequenceOfSequenceCodec<L extends List<T>, T> extends AsnObjectCodecBase<L> {
-
-  private final Supplier<AsnSequenceCodec<T>> supplier;
-    private final Supplier<L> listSupplier;
-    private ArrayList<AsnSequenceCodec<T>> codecs;
-
-    public AsnSequenceOfSequenceCodec(
-        Supplier<L> listSupplier,
-        Supplier<AsnSequenceCodec<T>> sequenceCodecSupplier)
+    /// <summary>
+    /// L = Sequence of Sequence POCO
+    /// T = POCO which the sequence represents
+    /// U = Sequence codec
+    /// </summary>
+    public class AsnSequenceOfSequenceCodec<L, T, U> : AsnObjectCodecBase<L>, IAsnSequenceOfSequenceCodec
+        where L : IList<T>
+        where U: AsnSequenceCodecBase<T>
     {
-        this.supplier = sequenceCodecSupplier;
-        this.listSupplier = listSupplier;
-    }
+        private IAsnObjectCodecSupplier<U, T> sequenceCodecSupplier;
+        private ISupplier<L> listSupplier;
+        private List<AsnSequenceCodecBase<T>> codecs;
 
-    public int size()
-    {
-        Objects.requireNonNull(codecs);
-        return this.codecs.size();
-    }
-
-
-    public void setSize(int size)
-    {
-        this.codecs = new ArrayList<>(size);
-        for (int i = 0; i < size; i++)
+        public int Size
         {
-            this.codecs.add(i, supplier.get());
+            get
+            {
+                Objects.RequireNonNull(this.codecs);
+                return this.codecs.Count;
+            }
+            set
+            {
+                this.codecs = new List<AsnSequenceCodecBase<T>>();
+                for (int i = 0; i < value; i++)
+                {
+                    this.codecs.Add(this.sequenceCodecSupplier.Get());
+                }
+            }
+        }
+
+        public AsnSequenceOfSequenceCodec(ISupplier<L> listSupplier, IAsnObjectCodecSupplier<U, T> sequenceCodecSupplier)
+        {
+            this.listSupplier = listSupplier;
+            this.sequenceCodecSupplier = sequenceCodecSupplier;
+        }
+
+        public dynamic GetCodecAt(int index)
+        {
+            Objects.RequireNonNull(this.codecs);
+            return this.codecs[index];
+        }
+
+        public override L Decode()
+        {
+            Objects.RequireNonNull(this.codecs);
+            L list = this.listSupplier.Get();
+            foreach (AsnSequenceCodecBase<T> codec in this.codecs)
+            {
+                list.Add(codec.Decode());
+            }
+            return list;
+        }
+
+        public override void Encode(L value)
+        {
+            this.codecs = new List<AsnSequenceCodecBase<T>>(value.Count);
+            foreach (T item in value)
+            {
+                AsnSequenceCodecBase<T> codec = this.sequenceCodecSupplier.Get();
+                codec.Encode(item);
+                this.codecs.Add(codec);
+            }
         }
     }
-
-    public AsnSequenceCodec<T> getCodecAt(int index)
-    {
-        Objects.requireNonNull(codecs);
-        return this.codecs.get(index);
-    }
-
-  public L decode()
-    {
-        Objects.requireNonNull(codecs);
-        L list = listSupplier.get();
-        for (AsnSequenceCodec<T> codec : codecs)
-        {
-            list.add(codec.decode());
-        }
-        return list;
-    }
-
-  public void encode(L values)
-    {
-        this.codecs = new ArrayList<>(values.size());
-        for (T value : values)
-        {
-            AsnSequenceCodec<T> codec = supplier.get();
-            codec.encode(value);
-            this.codecs.add(codec);
-        }
-    }
-
 }
-
-}
-*/

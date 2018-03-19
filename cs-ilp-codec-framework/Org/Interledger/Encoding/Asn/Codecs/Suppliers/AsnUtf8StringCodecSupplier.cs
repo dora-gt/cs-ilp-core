@@ -4,9 +4,9 @@ using Org.Interledger.Encoding.Asn.Framework;
 
 namespace Org.Interledger.Encoding.Asn.Codecs.Suppliers
 {
-    public class AsnUtf8StringCodecSupplier : IAsnObjectCodecSupplier<string>
+    public class AsnUtf8StringCodecSupplier : IAsnObjectCodecSupplier<AsnUtf8StringCodec, string>
     {
-        public IAsnObjectCodec<string> Get()
+        public AsnUtf8StringCodec Get()
         {
             return new AsnUtf8StringCodec(AsnSizeConstraint.UNCONSTRAINED);
         }

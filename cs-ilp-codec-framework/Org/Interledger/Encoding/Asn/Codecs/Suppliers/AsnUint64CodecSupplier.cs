@@ -4,9 +4,9 @@ using Org.Interledger.Encoding.Asn.Framework;
 
 namespace Org.Interledger.Encoding.Asn.Codecs.Suppliers
 {
-    public class AsnUint64CodecSupplier : IAsnObjectCodecSupplier<ulong>
+    public class AsnUint64CodecSupplier : IAsnObjectCodecSupplier<AsnUint64Codec, ulong>
     {
-        public IAsnObjectCodec<ulong> Get()
+        public AsnUint64Codec Get()
         {
             return new AsnUint64Codec();
         }

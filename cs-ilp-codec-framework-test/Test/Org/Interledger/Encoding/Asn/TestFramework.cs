@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Numerics;
 using Xunit;
 
 using Org.Interledger.Encoding.Asn.Framework;
@@ -159,7 +161,7 @@ namespace Test.Org.Interledger.Encoding.Asn
         public void TestRawSerialization()
         {
             AsnOctetStringCodec asnOctetStringCodec = new AsnOctetStringCodec(AsnSizeConstraint.UNCONSTRAINED);
-            asnOctetStringCodec.Encode(new byte[] { 0, 1, 2, 3, 4, 5});
+            asnOctetStringCodec.Encode(new byte[] { 0, 1, 2, 3, 4, 5 });
 
             AsnOctetStringOerSerializer serializer = new AsnOctetStringOerSerializer();
 
@@ -201,7 +203,7 @@ namespace Test.Org.Interledger.Encoding.Asn
         public void TestSequence()
         {
             CodecContext context = CodecContextFactory.GetContext(CodecContextFactory.OCTET_ENCODING_RULES);
-            context.Register<AsnSequenceCodecBase<MyCustomObject>, MyCustomObject>(new AsnMyCustomObjectCodecSupplier());
+            context.Register<AsnMyCustomObjectCodec, MyCustomObject>(new AsnMyCustomObjectCodecSupplier());
 
             using (MemoryStream stream = new MemoryStream())
             {
@@ -226,6 +228,36 @@ namespace Test.Org.Interledger.Encoding.Asn
                 stream.Position = 0;
                 MyCustomObject writtenMyCustomObject = context.Read<MyCustomObject>(stream);
                 Assert.Equal(o1, writtenMyCustomObject);
+            }
+        }
+
+        [Fact]
+        public void TestUintBigInteger()
+        {
+            CodecContext context = CodecContextFactory.GetContext(CodecContextFactory.OCTET_ENCODING_RULES);
+            {
+                BigInteger bigInteger = new BigInteger(1019872389);
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    stream.Position = 0;
+                    context.Write<BigInteger>(bigInteger, stream);
+                    stream.Position = 0;
+                    BigInteger writtenBigInteger = context.Read<BigInteger>(stream);
+
+                    Assert.Equal(bigInteger, writtenBigInteger);
+                }
+            }
+            {
+                BigInteger bigInteger = new BigInteger(128);
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    stream.Position = 0;
+                    context.Write<BigInteger>(bigInteger, stream);
+                    stream.Position = 0;
+                    BigInteger writtenBigInteger = context.Read<BigInteger>(stream);
+
+                    Assert.Equal(bigInteger, writtenBigInteger);
+                }
             }
         }
     }

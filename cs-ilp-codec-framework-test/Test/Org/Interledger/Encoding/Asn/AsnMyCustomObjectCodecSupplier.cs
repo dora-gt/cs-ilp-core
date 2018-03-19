@@ -4,9 +4,9 @@ using Org.Interledger.Encoding.Asn.Framework;
 
 namespace Test.Org.Interledger.Encoding.Asn
 {
-    public class AsnMyCustomObjectCodecSupplier : IAsnObjectCodecSupplier<MyCustomObject>
+    public class AsnMyCustomObjectCodecSupplier : IAsnObjectCodecSupplier<AsnMyCustomObjectCodec, MyCustomObject>
     {
-        public IAsnObjectCodec<MyCustomObject> Get()
+        public AsnMyCustomObjectCodec Get()
         {
             return new AsnMyCustomObjectCodec();
         }
