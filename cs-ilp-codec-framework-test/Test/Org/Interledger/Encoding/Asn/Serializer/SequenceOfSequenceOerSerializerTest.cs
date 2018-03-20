@@ -13,7 +13,7 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
 {
     public class SequenceOfSequenceOerSerializerTest
     {
-        private readonly ITestOutputHelper output;
+        private readonly ITestOutputHelper _output;
 
         public static IEnumerable<object[]> SequenceOfSequenceData = new[] {
             new object[] {
@@ -46,7 +46,7 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
 
         public SequenceOfSequenceOerSerializerTest(ITestOutputHelper output)
         {
-            this.output = output;
+            this._output = output;
         }
 
         [Fact]
@@ -107,7 +107,7 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
                 stream.Position = 0;
                 context.Write<SampleSequenceOfSequence>(ssos, stream);
                 byte[] bytes = stream.ToArray();
-                this.output.WriteLine(string.Format("TestSequenceOfSequenceBytes,\n\t{0} :expected bytes\n\t{1} :bytes read from stream", BitConverter.ToString(expectedBytes), BitConverter.ToString(bytes)));
+                this._output.WriteLine(string.Format("TestSequenceOfSequenceBytes,\n\t{0} :expected bytes\n\t{1} :bytes read from stream", BitConverter.ToString(expectedBytes), BitConverter.ToString(bytes)));
                 Assert.True(TestUtils.IsListEqual<byte>(expectedBytes, bytes));
             }
         }
@@ -115,20 +115,15 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
 
     public class SampleSequence
     {
-        private byte[] numbers;
+        public byte[] Numbers { get; private set; }
 
         public SampleSequence(params byte[] numbers)
         {
-            this.numbers = numbers;
-            if (this.numbers.Length != 3)
+            this.Numbers = numbers;
+            if (this.Numbers.Length != 3)
             {
                 throw new Exception("length of numbers should be 3!");
             }
-        }
-
-        public byte[] GetNumbers()
-        {
-            return numbers;
         }
 
         public override bool Equals(object obj)
@@ -148,8 +143,8 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
                 return true;
             }
 
-            byte[] thisNumbers = this.GetNumbers();
-            byte[] otherNumbers = other.GetNumbers();
+            byte[] thisNumbers = this.Numbers;
+            byte[] otherNumbers = other.Numbers;
             if (otherNumbers.Length != thisNumbers.Length)
             {
                 return false;
@@ -167,12 +162,12 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
 
         public override int GetHashCode()
         {
-            return this.GetNumbers().GetHashCode();
+            return this.Numbers.GetHashCode();
         }
 
         public override string ToString()
         {
-            return string.Format("SampleSequence [{0}]", string.Join(", ", this.numbers));
+            return string.Format("SampleSequence [{0}]", string.Join(", ", this.Numbers));
         }
     }
 
@@ -245,9 +240,9 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
 
         public override void Encode(SampleSequence value)
         {
-            SetValueAt(0, value.GetNumbers()[0]);
-            SetValueAt(1, value.GetNumbers()[1]);
-            SetValueAt(2, value.GetNumbers()[2]);
+            SetValueAt(0, value.Numbers[0]);
+            SetValueAt(1, value.Numbers[1]);
+            SetValueAt(2, value.Numbers[2]);
         }
     }
 
