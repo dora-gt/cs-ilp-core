@@ -36,7 +36,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
                 serializers.Register(typeof(AsnCharStringBasedObjectCodecBase<>), new AsnCharStringOerSerializer());
                 serializers.Register(typeof(AsnSequenceCodecBase<>), new AsnSequenceOerSerializer());
                 serializers.Register(typeof(AsnSequenceOfSequenceCodec<,,>), new AsnSequenceOfSequenceOerSerializer());
-                // serializers.Register(typeof(AsnOpenTypeCodec), new AsnOpenTypeOerSerializer());
+                serializers.Register(typeof(AsnOpenTypeCodec<>), new AsnOpenTypeOerSerializer());
             }
             else
             {
