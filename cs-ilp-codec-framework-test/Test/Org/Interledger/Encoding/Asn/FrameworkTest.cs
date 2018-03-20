@@ -10,7 +10,7 @@ using Org.Interledger.Encoding.Asn.Serializers.Oer;
 
 namespace Test.Org.Interledger.Encoding.Asn
 {
-    public class TestFramework
+    public class FrameworkTest
     {
         [Fact]
         public void TestByte()

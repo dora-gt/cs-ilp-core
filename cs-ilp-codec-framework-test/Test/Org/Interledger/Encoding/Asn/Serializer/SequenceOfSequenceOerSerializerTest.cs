@@ -11,7 +11,7 @@ using Org.Interledger.Encoding.Asn.Serializers.Oer;
 
 namespace Test.Org.Interledger.Encoding.Asn.Serializer
 {
-    public class SequenceOfSequenceSerializerTest
+    public class SequenceOfSequenceOerSerializerTest
     {
         private readonly ITestOutputHelper output;
 
@@ -44,7 +44,7 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
             }
         };
 
-        public SequenceOfSequenceSerializerTest(ITestOutputHelper output)
+        public SequenceOfSequenceOerSerializerTest(ITestOutputHelper output)
         {
             this.output = output;
         }
