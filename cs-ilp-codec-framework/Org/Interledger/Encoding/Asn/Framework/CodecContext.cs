@@ -8,18 +8,31 @@ namespace Org.Interledger.Encoding.Asn.Framework
         private readonly AsnObjectCodecRegistry _mappings;
         private readonly AsnObjectSerializationContext _serializers;
 
+        public AsnObjectSerializationContext SerializationContext { get { return this._serializers; } }
+
         public CodecContext(AsnObjectCodecRegistry mappings, AsnObjectSerializationContext serializers)
         {
             this._mappings = mappings;
             this._serializers = serializers;
         }
 
-        public CodecContext Register<T, U>(IAsnObjectCodecSupplier<U> supplier) where T: IAsnObjectCodec<U>
+        public CodecContext Register<T, U>(IAsnObjectCodecSupplier<T, U> supplier) where T: IAsnObjectCodec<U>
         {
             Objects.RequireNonNull(supplier);
 
             //Register the mapping
             this._mappings.Register(supplier);
+
+            return this;
+        }
+
+        public CodecContext Register<T, U>(IAsnObjectCodecSupplier<T, U> supplier, object asnObjectSerializer) where T : IAsnObjectCodec<U>
+        {
+            Objects.RequireNonNull(supplier);
+
+            //Register the mapping
+            this._mappings.Register(supplier);
+            this._serializers.Register(typeof(T), asnObjectSerializer);
 
             return this;
         }

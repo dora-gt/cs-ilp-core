@@ -9,7 +9,7 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
 {
     public class AsnCharStringOerSerializer : IAsnObjectSerializer<AsnCharStringBasedObjectCodecBase<string>>
     {
-        public void Read(AsnCharStringBasedObjectCodecBase<string> instance, Stream inputStream)
+        public void Read(AsnObjectSerializationContext context, AsnCharStringBasedObjectCodecBase<string> instance, Stream inputStream)
         {
             Objects.RequireNonNull(instance);
             Objects.RequireNonNull(inputStream);
@@ -31,7 +31,7 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
             instance.CharString = result;
         }
 
-        public void Write(AsnCharStringBasedObjectCodecBase<string> instance, Stream outputStream)
+        public void Write(AsnObjectSerializationContext context, AsnCharStringBasedObjectCodecBase<string> instance, Stream outputStream)
         {
             Objects.RequireNonNull(instance);
             Objects.RequireNonNull(outputStream);

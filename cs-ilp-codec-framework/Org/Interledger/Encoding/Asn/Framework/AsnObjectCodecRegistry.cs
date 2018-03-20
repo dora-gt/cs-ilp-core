@@ -15,11 +15,11 @@ namespace Org.Interledger.Encoding.Asn.Framework
             this._mappersByObjectType = new ConcurrentDictionary<Type, object>();
         }
 
-        public AsnObjectCodecRegistry Register<T>(IAsnObjectCodecSupplier<T> supplier)
+        public AsnObjectCodecRegistry Register<T, U>(IAsnObjectCodecSupplier<T, U> supplier) where T : IAsnObjectCodec<U>
         {
             Objects.RequireNonNull(supplier);
 
-            this._mappersByObjectType.Add(typeof(T), supplier);
+            this._mappersByObjectType.Add(typeof(U), supplier);
 
             return this;
         }
@@ -43,7 +43,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
 
             if (this._mappersByObjectType.ContainsKey(type))
             {
-                codec = ((IAsnObjectCodecSupplier<T>)this._mappersByObjectType[type]).Get();
+                codec = ((dynamic)this._mappersByObjectType[type]).Get();
                 if (codec != null)
                 {
                     return codec;

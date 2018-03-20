@@ -22,5 +22,6 @@
     <Folder Include="Test\Org\Interledger\" />
     <Folder Include="Test\Org\Interledger\Encoding\" />
     <Folder Include="Test\Org\Interledger\Encoding\Asn\" />
+    <Folder Include="Test\Org\Interledger\Encoding\Asn\Serializer\" />
   </ItemGroup>
 </Project>

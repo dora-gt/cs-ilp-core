@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using Org.Interledger.Encoding.Asn.Framework;
+
 namespace Org.Interledger.Encoding.Asn.Codecs
 {
-    public abstract class AsnSequenceCodecBase<T> : AsnObjectCodecBase<T>, IAsnSequenceCodec
+    public abstract class AsnSequenceCodecBase<T> : AsnObjectCodecBase<T>, IAsnSequenceCodec, IAsnObjectCodec<T>
     {
         // object = AsnObjectCodec
         private readonly List<object> sequence = new List<object>();
