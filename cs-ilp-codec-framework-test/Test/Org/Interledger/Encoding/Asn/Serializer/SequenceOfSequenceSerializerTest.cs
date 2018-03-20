@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 using Xunit;
+using Xunit.Abstractions;
 
 using Org.Interledger.Encoding.Asn.Framework;
 using Org.Interledger.Encoding.Asn.Codecs;
@@ -12,6 +13,42 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
 {
     public class SequenceOfSequenceSerializerTest
     {
+        private readonly ITestOutputHelper output;
+
+        public static IEnumerable<object[]> SequenceOfSequenceData = new[] {
+            new object[] {
+                new byte[][]
+                {
+                    new byte[]{0,0,0}
+                },
+                TestUtils.GetBytesFromHexString("0101000000", 16)
+            },
+            new object[] {
+                new byte[][]
+                {
+                    new byte[]{1,2,3},
+                    new byte[]{1,2,3}
+                },
+                TestUtils.GetBytesFromHexString("0102010203010203", 16)
+            },
+            new object[] {
+                new byte[][]
+                {
+                    new byte[]{0,1,255},
+                    new byte[]{0,1,255},
+                    new byte[]{0,1,255},
+                    new byte[]{0,1,255},
+                    new byte[]{255,0,1}
+                },
+                TestUtils.GetBytesFromHexString("01050001FF0001FF0001FF0001FFFF0001", 16)
+            }
+        };
+
+        public SequenceOfSequenceSerializerTest(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
         [Fact]
         public void TestSequence()
         {
@@ -38,9 +75,7 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
             context.Register<SampleSequenceOfSequenceCodec, SampleSequenceOfSequence>(new SampleSequenceOfSequenceCodecSupplier());
 
             SampleSequenceOfSequence ssos = new SampleSequenceOfSequence();
-            ssos.Add(new SampleSequence(0, 1, 2));
-            ssos.Add(new SampleSequence(3, 4, 5));
-            ssos.Add(new SampleSequence(6, 7, 8));
+            ssos.Add(new SampleSequence(0, 0, 0));
 
             using (MemoryStream stream = new MemoryStream())
             {
@@ -52,13 +87,37 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
                 Assert.Equal(ssos, writtenSsos);
             }
         }
+
+        [Theory]
+        [MemberData(nameof(SequenceOfSequenceData))]
+        public void TestSequenceOfSequenceBytes(byte[][] data, byte[] expectedBytes)
+        {
+            CodecContext context = CodecContextFactory.GetContext(CodecContextFactory.OCTET_ENCODING_RULES);
+            context.Register<SampleSequenceCodec, SampleSequence>(new SampleSequenceCodecSupplier());
+            context.Register<SampleSequenceOfSequenceCodec, SampleSequenceOfSequence>(new SampleSequenceOfSequenceCodecSupplier());
+
+            SampleSequenceOfSequence ssos = new SampleSequenceOfSequence();
+            foreach (byte[] ints in data)
+            {
+                ssos.Add(new SampleSequence(ints));
+            }
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                stream.Position = 0;
+                context.Write<SampleSequenceOfSequence>(ssos, stream);
+                byte[] bytes = stream.ToArray();
+                this.output.WriteLine(string.Format("TestSequenceOfSequenceBytes,\n\t{0} :expected bytes\n\t{1} :bytes read from stream", BitConverter.ToString(expectedBytes), BitConverter.ToString(bytes)));
+                Assert.True(TestUtils.IsListEqual<byte>(expectedBytes, bytes));
+            }
+        }
     }
 
     public class SampleSequence
     {
-        private uint[] numbers;
+        private byte[] numbers;
 
-        public SampleSequence(params uint[] numbers)
+        public SampleSequence(params byte[] numbers)
         {
             this.numbers = numbers;
             if (this.numbers.Length != 3)
@@ -67,7 +126,7 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
             }
         }
 
-        public uint[] GetNumbers()
+        public byte[] GetNumbers()
         {
             return numbers;
         }
@@ -89,8 +148,8 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
                 return true;
             }
 
-            uint[] thisNumbers = this.GetNumbers();
-            uint[] otherNumbers = other.GetNumbers();
+            byte[] thisNumbers = this.GetNumbers();
+            byte[] otherNumbers = other.GetNumbers();
             if (otherNumbers.Length != thisNumbers.Length)
             {
                 return false;
@@ -141,7 +200,7 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
                 return false;
             }
 
-            for (int index = 0; index < this.Count; index ++)
+            for (int index = 0; index < this.Count; index++)
             {
                 if (this[index].Equals(other[index]) == false)
                 {
@@ -165,7 +224,7 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
 
     public class SampleSequenceOfSequenceCodec : AsnSequenceOfSequenceCodec<SampleSequenceOfSequence, SampleSequence, SampleSequenceCodec>
     {
-        public SampleSequenceOfSequenceCodec() : base (new SampleSequenceOfSequenceSupplier(), new SampleSequenceCodecSupplier())
+        public SampleSequenceOfSequenceCodec() : base(new SampleSequenceOfSequenceSupplier(), new SampleSequenceCodecSupplier())
         {
         }
     }
@@ -173,15 +232,15 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
     public class SampleSequenceCodec : AsnSequenceCodecBase<SampleSequence>
     {
         public SampleSequenceCodec() : base(
-            new AsnUint32Codec(),
-            new AsnUint32Codec(),
-            new AsnUint32Codec())
+            new AsnUint8Codec(),
+            new AsnUint8Codec(),
+            new AsnUint8Codec())
         {
         }
 
         public override SampleSequence Decode()
         {
-            return new SampleSequence(GetValueAt<uint>(0), GetValueAt<uint>(1), GetValueAt<uint>(2));
+            return new SampleSequence(GetValueAt<byte>(0), GetValueAt<byte>(1), GetValueAt<byte>(2));
         }
 
         public override void Encode(SampleSequence value)
