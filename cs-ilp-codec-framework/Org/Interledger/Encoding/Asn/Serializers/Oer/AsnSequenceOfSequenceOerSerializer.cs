@@ -8,17 +8,10 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
 {
     public class AsnSequenceOfSequenceOerSerializer : IAsnObjectSerializer<IAsnSequenceOfSequenceCodec>
     {
-        private AsnObjectSerializationContext AsnObjectSerializationContext { get; set; }
-
-        public AsnSequenceOfSequenceOerSerializer(AsnObjectSerializationContext asnObjectSerializationContext)
-        {
-            this.AsnObjectSerializationContext = asnObjectSerializationContext;
-        }
-
-        public void Read(IAsnSequenceOfSequenceCodec instance, Stream inputStream)
+        public void Read(AsnObjectSerializationContext context, IAsnSequenceOfSequenceCodec instance, Stream inputStream)
         {
             AsnUintCodec quantityCodec = new AsnUintCodec();
-            this.AsnObjectSerializationContext.Read(quantityCodec, inputStream);
+            context.Read(quantityCodec, inputStream);
 
             BigInteger quantityBigInt = quantityCodec.Decode();
             if (quantityBigInt.CompareTo(new BigInteger(int.MaxValue)) > 0)
@@ -31,19 +24,19 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
 
             for (int i = 0; i < quantity; i++)
             {
-                this.AsnObjectSerializationContext.Read(instance.GetCodecAt(i), inputStream);
+                context.Read(instance.GetCodecAt(i), inputStream);
             }
         }
 
-        public void Write(IAsnSequenceOfSequenceCodec instance, Stream outputStream)
+        public void Write(AsnObjectSerializationContext context, IAsnSequenceOfSequenceCodec instance, Stream outputStream)
         {
             AsnUintCodec quantityCodec = new AsnUintCodec();
             quantityCodec.Encode(new BigInteger(instance.Size));
-            this.AsnObjectSerializationContext.Write(quantityCodec, outputStream);
+            context.Write(quantityCodec, outputStream);
 
             for (int i = 0; i < instance.Size; i++)
             {
-                this.AsnObjectSerializationContext.Write(instance.GetCodecAt(i), outputStream);
+                context.Write(instance.GetCodecAt(i), outputStream);
             }
         }
     }

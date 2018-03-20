@@ -167,7 +167,7 @@ namespace Test.Org.Interledger.Encoding.Asn
 
             using (MemoryStream stream = new MemoryStream())
             {
-                serializer.Write(asnOctetStringCodec, stream);
+                serializer.Write(null, asnOctetStringCodec, stream);
             }
         }
 

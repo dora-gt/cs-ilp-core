@@ -36,7 +36,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
         {
             Objects.RequireNonNull(instance);
             Objects.RequireNonNull(inputStream);
-            this.GetSerializer(instance).Read(instance, inputStream);
+            this.GetSerializer(instance).Read(this, instance, inputStream);
             return this;
         }
 
@@ -64,7 +64,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
         {
             Objects.RequireNonNull(instance);
             Objects.RequireNonNull(outputStream);
-            this.GetSerializer(instance).Write(instance, outputStream);
+            this.GetSerializer(instance).Write(this, instance, outputStream);
             return this;
         }
 
