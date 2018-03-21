@@ -26,7 +26,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
             return this;
         }
 
-        public CodecContext Register<T, U>(IAsnObjectCodecSupplier<T, U> supplier, object asnObjectSerializer) where T : IAsnObjectCodec<U>
+        public CodecContext Register<T, U>(IAsnObjectCodecSupplier<T, U> supplier, IAsnObjectSerializer<T> asnObjectSerializer) where T : IAsnObjectCodec<U>
         {
             Objects.RequireNonNull(supplier);
 
