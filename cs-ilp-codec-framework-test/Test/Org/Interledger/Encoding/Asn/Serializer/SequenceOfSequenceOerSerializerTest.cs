@@ -138,10 +138,6 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
             }
 
             SampleSequence other = (SampleSequence)obj;
-            if (obj == other)
-            {
-                return true;
-            }
 
             byte[] thisNumbers = this.Numbers;
             byte[] otherNumbers = other.Numbers;
@@ -185,10 +181,6 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
             }
 
             SampleSequenceOfSequence other = (SampleSequenceOfSequence)obj;
-            if (obj == other)
-            {
-                return true;
-            }
 
             if (this.Count != other.Count)
             {

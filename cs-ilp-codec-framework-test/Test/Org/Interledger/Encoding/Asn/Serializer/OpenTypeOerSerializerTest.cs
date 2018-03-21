@@ -92,6 +92,12 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
                 SampleType actualValue = context.Read<SampleType>(stream);
                 this._output.WriteLine(string.Format("TestOpenTypeRead result,\n\t{0} :expected bytes\n\t{1} :actual bytes", BitConverter.ToString(octetBytes), BitConverter.ToString(actualValue.Bytes)));
                 Assert.Equal(octetBytes, actualValue.Bytes);
+
+                stream.Position = 0;
+                context.Write<SampleType>(actualValue, stream);
+                stream.Position = 0;
+                SampleType writtenValue = context.Read<SampleType>(stream);
+                Assert.Equal(actualValue, writtenValue);
             }
         }
     }
@@ -104,6 +110,26 @@ namespace Test.Org.Interledger.Encoding.Asn.Serializer
         public SampleType(byte[] bytes)
         {
             this.Bytes = bytes;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (this == obj)
+            {
+                return true;
+            }
+            if (obj == null || this.GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            SampleType other = (SampleType)obj;
+            return TestUtils.IsListEqual<byte>(this.Bytes, other.Bytes);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Bytes.GetHashCode();
         }
     }
 

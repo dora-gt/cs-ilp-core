@@ -71,12 +71,15 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
         {
             // because length of bytes is not always 8.
             // e.g. 3 bytes, it must be 8 bytes to be converted to ulong.
-            Array.Reverse(bytes);
-            if (bytes.Length < 8)
+            if (BitConverter.IsLittleEndian)
             {
-                byte[] enough = new byte[8];
-                Array.Copy(bytes, enough, bytes.Length);
-                bytes = enough;
+                Array.Reverse(bytes);
+                if (bytes.Length < 8)
+                {
+                    byte[] enough = new byte[8];
+                    Array.Copy(bytes, enough, bytes.Length);
+                    bytes = enough;
+                }
             }
             return BitConverter.ToUInt64(bytes, 0);
         }
