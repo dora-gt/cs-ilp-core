@@ -76,7 +76,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
             {
                 using (MemoryStream stream = new MemoryStream())
                 {
-                    this.GetSerializer(instance).Write(instance, stream);
+                    this.GetSerializer(instance).Write(this, instance, stream);
                     return stream.GetBuffer();
                 }
             }
