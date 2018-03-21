@@ -259,6 +259,18 @@ namespace Test.Org.Interledger.Encoding.Asn
                     Assert.Equal(bigInteger, writtenBigInteger);
                 }
             }
+            {
+                BigInteger bigInteger = new BigInteger(0);
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    stream.Position = 0;
+                    context.Write<BigInteger>(bigInteger, stream);
+                    stream.Position = 0;
+                    BigInteger writtenBigInteger = context.Read<BigInteger>(stream);
+
+                    Assert.Equal(bigInteger, writtenBigInteger);
+                }
+            }
         }
     }
 }

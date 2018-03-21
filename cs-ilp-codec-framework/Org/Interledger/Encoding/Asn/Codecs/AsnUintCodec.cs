@@ -23,7 +23,7 @@ namespace Org.Interledger.Encoding.Asn.Codecs
 
         public override void Encode(BigInteger value)
         {
-            if (value.CompareTo(BigInteger.Zero) <= 0)
+            if (value.CompareTo(BigInteger.Zero) < 0)
             {
                 throw new ArgumentException("value must be positive or zero");
             }
