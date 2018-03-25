@@ -3,7 +3,6 @@
 var target = Argument("Target", "Default");
 var configuration = Argument("Configuration", "Release");  
 var solution = "./cs-ilp-core.sln";
-var testResultFile = "TestResults.xml";
 
 Task("Restore")  
     .Does(() =>
