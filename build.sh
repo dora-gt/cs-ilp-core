@@ -71,7 +71,7 @@ if [ ! -f "$PACKAGES_CONFIG_MD5" ] || [ "$( cat "$PACKAGES_CONFIG_MD5" | sed 's/
     find . -type d ! -name . ! -name 'Cake.Bakery' | xargs rm -rf
 fi
 
-mono "$NUGET_EXE" install -ExcludeVersion
+mono "$NUGET_EXE" install -ExcludeVersion -Verbosity detailed
 if [ $? -ne 0 ]; then
     echo "Could not restore NuGet tools."
     exit 1
