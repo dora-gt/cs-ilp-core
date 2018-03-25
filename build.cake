@@ -1,8 +1,9 @@
 #tool "nuget:?package=xunit.runner.console&version=2.2.0"
 
-var target = Argument("target", "Default");
+var target = Argument("Target", "Default");
 var configuration = Argument("Configuration", "Release");  
 var solution = "./cs-ilp-core.sln";
+var testResultFile = "TestResults.xml";
 
 Task("Restore")  
     .Does(() =>
@@ -33,16 +34,17 @@ Task("Test")
                 project.FullPath,
                 new DotNetCoreTestSettings()
                 {
+                    ArgumentCustomization = args => args.Append("-l trx"),
                     Configuration = configuration,
                     NoBuild = true,
                     Verbosity = DotNetCoreVerbosity.Normal,
                     DiagnosticOutput = true,
-                    ResultsDirectory = new DirectoryPath("./TestResults")
+                    ResultsDirectory = new DirectoryPath("./TestResult")
                 });
         }
     });
 
 Task("Default")
-    .IsDependentOn("Test");
+    .IsDependentOn("Build");
 
 RunTarget(target);
