@@ -61,27 +61,10 @@ namespace Org.Interledger.Encoding.Asn.Serializers.Oer
                         string.Format("error reading {0} bytes from stream, only read {1}", lengthOfLength, read)
                     );
                 }
-                length = ToUlong(ba);
+                length = ByteUtils.ToUlong(ba, Endianness.BigEndian);
             }
 
             return length;
-        }
-
-        private static ulong ToUlong(byte[] bytes)
-        {
-            // because length of bytes is not always 8.
-            // e.g. 3 bytes, it must be 8 bytes to be converted to ulong.
-            if (BitConverter.IsLittleEndian)
-            {
-                Array.Reverse(bytes);
-                if (bytes.Length < 8)
-                {
-                    byte[] enough = new byte[8];
-                    Array.Copy(bytes, enough, bytes.Length);
-                    bytes = enough;
-                }
-            }
-            return BitConverter.ToUInt64(bytes, 0);
         }
 
         public static void WriteLength(ulong length, Stream outputStream)

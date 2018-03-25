@@ -16,7 +16,7 @@ namespace Org.Interledger.Encoding.Asn.Framework
             this._serializers = new ConcurrentDictionary<Type, object>();
         }
 
-        public AsnObjectSerializationContext Register(Type type, object serializer)
+        public AsnObjectSerializationContext Register<T>(Type type, IAsnObjectSerializer<T> serializer)
         {
             Objects.RequireNonNull(type);
             Objects.RequireNonNull(serializer);
