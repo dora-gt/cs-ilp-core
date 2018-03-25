@@ -1,46 +1,48 @@
-#tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
-//////////////////////////////////////////////////////////////////////
-// ARGUMENTS
-//////////////////////////////////////////////////////////////////////
+#tool "nuget:?package=xunit.runner.console&version=2.2.0"
 
 var target = Argument("target", "Default");
-var configuration = Argument("configuration", "Release");
+var configuration = Argument("Configuration", "Release");  
+var solution = "./cs-ilp-core.sln";
 
-//////////////////////////////////////////////////////////////////////
-// TASKS
-//////////////////////////////////////////////////////////////////////
-
-Task("Restore-NuGet-Packages")
+Task("Restore")  
     .Does(() =>
     {
-        NuGetRestore("./cs-ilp-core.sln");
+        DotNetCoreRestore();
     });
 
-Task("Build")
-    .IsDependentOn("Restore-NuGet-Packages")
+Task("Build")  
+    .IsDependentOn("Restore")
     .Does(() =>
     {
-        MSBuild("./cs-ilp-core.sln", settings => settings.SetConfiguration(configuration));
-    });
-
-Task("Run-Unit-Tests")
-    .IsDependentOn("Build")
-    .Does(() =>
-    {
-        NUnit3("./bin/" + configuration + "/*.Tests.dll", new NUnit3Settings {
-            NoResults = true
+        DotNetCoreBuild(
+            solution, 
+            new DotNetCoreBuildSettings()
+            {
+                Configuration = configuration
             });
     });
 
-//////////////////////////////////////////////////////////////////////
-// TASK TARGETS
-//////////////////////////////////////////////////////////////////////
+Task("Test")  
+    .IsDependentOn("Build")
+    .Does(() =>
+    {
+        var projects = GetFiles("./*test/*.csproj");
+        foreach(var project in projects)
+        {
+            DotNetCoreTest(
+                project.FullPath,
+                new DotNetCoreTestSettings()
+                {
+                    Configuration = configuration,
+                    NoBuild = true,
+                    Verbosity = DotNetCoreVerbosity.Normal,
+                    DiagnosticOutput = true,
+                    ResultsDirectory = new DirectoryPath("./TestResults")
+                });
+        }
+    });
 
 Task("Default")
-    .IsDependentOn("Run-Unit-Tests");
-
-//////////////////////////////////////////////////////////////////////
-// EXECUTION
-//////////////////////////////////////////////////////////////////////
+    .IsDependentOn("Test");
 
 RunTarget(target);
