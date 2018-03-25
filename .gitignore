@@ -461,5 +461,7 @@ Temporary Items
 # VisualStudio Code
 .vscode
 
+# cake
+/tools
 
 # End of https://www.gitignore.io/api/macos,csharp,visualstudio
